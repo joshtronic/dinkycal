@@ -19,14 +19,11 @@ struct DayDetailView: View {
                     Text("Nothing scheduled.")
                         .font(.system(size: 13))
                         .foregroundStyle(.secondary)
+                } else if events.count <= 7 {
+                    eventList(events, day: day)
                 } else {
-                    ScrollView {
-                        VStack(alignment: .leading, spacing: 6) {
-                            ForEach(events) { EventRow(event: $0, day: day) }
-                        }
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                    }
-                    .frame(maxHeight: min(CGFloat(events.count) * 24, 180))
+                    ScrollView { eventList(events, day: day) }
+                        .frame(maxHeight: 180)
                 }
             } else {
                 Text("Select a day")
@@ -48,6 +45,13 @@ struct DayDetailView: View {
                     .help("Settings")
             }
             .padding(.top, 4)
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+    }
+
+    private func eventList(_ events: [CalendarEvent], day: Date) -> some View {
+        VStack(alignment: .leading, spacing: 6) {
+            ForEach(events) { EventRow(event: $0, day: day) }
         }
         .frame(maxWidth: .infinity, alignment: .leading)
     }

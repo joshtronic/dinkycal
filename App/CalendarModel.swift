@@ -69,7 +69,20 @@ final class CalendarModel: ObservableObject {
         reloadEvents()
     }
 
+    #if DEBUG
+    /// Debug-only: replaces calendar data with a synthetic month for screenshots.
+    func loadDemo() {
+        demoMode = true
+        access = .granted
+        events = DemoEvents.month(containing: today, calendar: calendar)
+    }
+    private var demoMode = false
+    #endif
+
     private func loadEvents() {
+        #if DEBUG
+        if demoMode { return }
+        #endif
         guard access == .granted else { events = []; return }
         if let cached = cache[monthStart] { events = cached; return }
         let days = grid.days

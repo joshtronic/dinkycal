@@ -41,6 +41,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         if UserDefaults.standard.bool(forKey: "snapshot") {
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
                 guard let self else { return }
+                if UserDefaults.standard.bool(forKey: "demo") { self.model.loadDemo() }
                 let hover = UserDefaults.standard.integer(forKey: "previewHoverDays")
                 if hover != 0 { self.model.hoveredDay = self.model.calendar.date(byAdding: .day, value: hover, to: self.model.today) }
                 let view = PopoverView()
