@@ -11,28 +11,28 @@ struct DayCell: View {
         let number = model.calendar.component(.day, from: day.date)
         let isSelected = model.selectedDay == day.date
         let isHovered = model.hoveredDay == day.date
-        VStack(spacing: 2) {
+        let level = model.busy(for: day.date).level
+        VStack(spacing: 5) {
             Text("\(number)")
                 .font(.system(size: 13, weight: day.isToday ? .bold : .regular).monospacedDigit())
-                .foregroundStyle(day.isToday ? Color.white : Color.primary)
-                .frame(width: 26, height: 26)
+                .foregroundStyle(HeatDot.textColor(level: level, isToday: day.isToday))
+                .frame(width: 28, height: 28)
                 .background {
-                    if day.isToday {
-                        Circle().fill(Color.accentColor)
-                    } else if isHovered {
-                        Circle().fill(Color.primary.opacity(0.1))
-                    }
+                    // The heat: a filled circle behind the date, brighter for busier days.
+                    Circle().fill(level > 0 ? HeatDot.color(level: level)
+                                            : Color.primary.opacity(isHovered ? 0.1 : 0))
                 }
                 .overlay {
                     if isSelected {
                         Circle()
                             .strokeBorder(Color.accentColor, lineWidth: 2)
-                            .frame(width: 32, height: 32)
+                            .frame(width: 34, height: 34)
                     }
                 }
-            Circle()
-                .fill(HeatDot.color(level: model.busy(for: day.date).level))
-                .frame(width: 6, height: 6)
+            // Today: a short accent bar under the date.
+            Capsule()
+                .fill(day.isToday ? Color.accentColor : Color.clear)
+                .frame(width: 12, height: 2.5)
         }
         .frame(maxWidth: .infinity)
         .frame(height: 38)
@@ -71,7 +71,13 @@ struct DayCell: View {
 enum HeatDot {
     /// Accent color at four intensity steps; level 0 draws nothing.
     static func color(level: Int) -> Color {
-        let opacity: [Double] = [0, 0.45, 0.62, 0.8, 1]
+        let opacity: [Double] = [0, 0.24, 0.5, 0.76, 1]
         return Color(nsColor: .controlAccentColor).opacity(opacity[min(max(level, 0), 4)])
+    }
+
+    /// White on the two strongest fills; otherwise normal text (accent for today).
+    static func textColor(level: Int, isToday: Bool) -> Color {
+        if level >= 3 { return .white }
+        return isToday ? .accentColor : .primary
     }
 }
