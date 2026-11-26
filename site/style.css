@@ -241,7 +241,8 @@ a:hover { text-decoration-color: var(--blue); }
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--ink-3);
-  padding: 0 10px 10px;
+  padding: 0 0 10px;
+  text-align: center;
 }
 
 .month {
@@ -257,40 +258,58 @@ a:hover { text-decoration-color: var(--blue); }
   background: transparent;
   font: inherit;
   color: inherit;
-  text-align: left;
-  min-height: clamp(52px, 4.4vw, 62px);
-  padding: 10px;
+  min-height: clamp(52px, 5vw, 66px);
+  padding: 8px 4px 6px;
   position: relative;
   cursor: pointer;
   display: grid;
-  grid-template-rows: auto 1fr;
+  place-items: center;
+  align-content: center;
+  gap: 5px;
   transition: background-color 160ms var(--ease);
 }
 .day:hover, .day.is-hover { background: #f6f9ff; }
+
+/* The heat: a round sticker behind the date, in one of four blues. */
 .day .num {
-  font: 700 clamp(0.9rem, 1.4vw, 1.125rem)/1 var(--display);
+  --c: transparent;
+  font: 700 clamp(0.9rem, 1.4vw, 1.0625rem)/1 var(--display);
   font-variant-numeric: tabular-nums;
-  width: 1.9em;
-  height: 1.9em;
+  width: clamp(30px, 3.2vw, 40px);
+  height: clamp(30px, 3.2vw, 40px);
   display: grid;
   place-items: center;
   border-radius: 50%;
-  margin: -4px 0 0 -4px;
+  background: var(--c);
+  transition: box-shadow 160ms var(--ease);
 }
+.day[data-level] .num {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0) 55%), var(--c);
+  box-shadow: 0 0 0 2px #fff, var(--lift-sm);
+}
+.day[data-level="1"] .num { --c: var(--dot-1); }
+.day[data-level="2"] .num { --c: var(--dot-2); }
+.day[data-level="3"] .num { --c: var(--dot-3); color: #fff; }
+.day[data-level="4"] .num { --c: var(--dot-4); color: #fff; }
 .day.out .num { color: #a5acbd; }
-.day.today .num { background: var(--blue); color: #fff; }
-.day .spot {
-  display: grid;
-  place-items: center;
-  --d: clamp(18px, 2.6vw, 30px);
+
+/* Today: a short blue bar under the date. Selected: a ring around the sticker. */
+.day::after {
+  content: "";
+  width: 12px;
+  height: 3px;
+  border-radius: 2px;
+  background: transparent;
 }
-.day.selected { box-shadow: inset 0 0 0 3px var(--blue); }
+.day.today::after { background: var(--blue); }
+.day.today:not([data-level="3"]):not([data-level="4"]) .num { color: var(--blue); }
+.day.selected .num { box-shadow: 0 0 0 2px #fff, 0 0 0 4.5px var(--blue); }
 .day.drop-target { background: #eaf1ff; }
 
 @media (prefers-reduced-motion: no-preference) {
-  .day .dot.stuck { animation: stick 520ms var(--ease) both; animation-delay: calc(var(--i, 0) * 28ms); }
+  .day .num.stuck { animation: stick 520ms var(--ease) both; animation-delay: calc(var(--i, 0) * 28ms); }
   @keyframes stick {
-    from { transform: translateY(-10px) scale(1.18) rotate(-8deg); box-shadow: 0 14px 18px -8px rgba(23, 25, 31, 0.35); }
+    from { transform: translateY(-8px) scale(1.15) rotate(-8deg); }
   }
 }
 
@@ -634,8 +653,7 @@ a:hover { text-decoration-color: var(--blue); }
 
 @media (max-width: 560px) {
   .page { padding: 36px 8px 12px; border-radius: 16px; }
-  .day { padding: 6px 4px; min-height: 54px; }
-  .day .num { margin: 0; }
+  .day { padding: 6px 2px 4px; min-height: 50px; gap: 3px; }
   .weekdays span { padding: 0 4px 8px; text-align: center; }
   .name-label { padding: 16px 20px 20px; }
   .tab { justify-content: flex-start; }
@@ -648,9 +666,3 @@ a:hover { text-decoration-color: var(--blue); }
   .nav { gap: 4px 14px; font-size: 0.875rem; }
 }
 
-/* Wide screens: the sticker sits beside the date, so the whole month fits above the fold. */
-@media (min-width: 861px) {
-  .day { grid-template-rows: none; grid-template-columns: auto 1fr; align-items: center; padding: 12px 14px; }
-  .day .num { margin: 0; }
-  .day .spot { justify-items: end; --d: 24px; }
-}

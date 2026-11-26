@@ -102,7 +102,7 @@
     cell.className = "day" + (inMonth ? "" : " out") + (inMonth && n === today.getDate() ? " today" : "");
     cell.tabIndex = inMonth && n === selected ? 0 : -1;
     cell.dataset.offset = String(i);
-    cell.innerHTML = `<span class="num">${n}</span><span class="spot"></span>`;
+    cell.innerHTML = `<span class="num">${n}</span>`;
     if (inMonth) {
       cellsByDay[n] = cell;
       cell.dataset.day = String(n);
@@ -116,15 +116,17 @@
   }
 
   function paintDot(day, index) {
-    const spot = cellsByDay[day].querySelector(".spot");
-    spot.innerHTML = "";
+    const cell = cellsByDay[day];
+    const num = cell.querySelector(".num");
     const level = levels[day];
+    num.classList.remove("stuck");
     if (level > 0) {
-      const dot = document.createElement("span");
-      dot.className = "dot stuck";
-      dot.dataset.level = String(level);
-      dot.style.setProperty("--i", String(index ?? 0));
-      spot.append(dot);
+      cell.dataset.level = String(level);
+      num.style.setProperty("--i", String(index ?? 0));
+      void num.offsetWidth; // restart the stick animation
+      num.classList.add("stuck");
+    } else {
+      delete cell.dataset.level;
     }
     const b = busy(day);
     const date = new Date(year, month, day);
