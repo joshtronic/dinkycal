@@ -3,7 +3,7 @@
   const stage = document.querySelector(".stage");
   const scene = stage && stage.querySelector(".scene");
   if (scene) {
-    const fit = () => scene.style.setProperty("--s", String(stage.clientWidth / 620));
+    const fit = () => scene.style.setProperty("--s", String(stage.clientWidth / scene.offsetWidth));
     new ResizeObserver(fit).observe(stage);
     fit();
   }
