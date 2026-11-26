@@ -12,31 +12,31 @@ struct DayCell: View {
         let isSelected = model.selectedDay == day.date
         let isHovered = model.hoveredDay == day.date
         let level = model.busy(for: day.date).level
-        VStack(spacing: 5) {
-            Text("\(number)")
-                .font(.system(size: 13, weight: day.isToday ? .bold : .regular).monospacedDigit())
-                .foregroundStyle(HeatDot.textColor(level: level, isToday: day.isToday,
-                                                   isWeekend: model.isDimmedWeekend(day.date)))
-                .frame(width: 28, height: 28)
-                .background {
-                    // The heat: a filled circle behind the date, brighter for busier days.
-                    Circle().fill(level > 0 ? HeatDot.color(level: level)
-                                            : Color.primary.opacity(isHovered ? 0.1 : 0))
+        Text("\(number)")
+            .font(.system(size: 13, weight: day.isToday ? .bold : .regular).monospacedDigit())
+            .foregroundStyle(HeatDot.textColor(level: level, isToday: day.isToday,
+                                               isWeekend: model.isDimmedWeekend(day.date)))
+            .frame(width: 28, height: 28)
+            .background {
+                // The heat: a filled circle behind the date, brighter for busier days.
+                Circle().fill(level > 0 ? HeatDot.color(level: level)
+                                        : Color.primary.opacity(isHovered ? 0.1 : 0))
+            }
+            .overlay {
+                // Today: an accent ring just outside the date.
+                if day.isToday {
+                    Circle().strokeBorder(Color.accentColor, lineWidth: 2).frame(width: 33, height: 33)
                 }
-                .overlay {
-                    if isSelected {
-                        Circle()
-                            .strokeBorder(Color.accentColor, lineWidth: 2)
-                            .frame(width: 34, height: 34)
-                    }
+            }
+            .overlay {
+                // Selected: a neutral ring, outside today's ring when both apply.
+                if isSelected {
+                    let size: CGFloat = day.isToday ? 39 : 33
+                    Circle().strokeBorder(Color.primary, lineWidth: 2).frame(width: size, height: size)
                 }
-            // Today: a short accent bar under the date.
-            Capsule()
-                .fill(day.isToday ? Color.accentColor : Color.clear)
-                .frame(width: 12, height: 2.5)
-        }
+            }
         .frame(maxWidth: .infinity)
-        .frame(height: 38)
+        .frame(height: 40)
         .opacity(day.isInMonth ? 1 : 0.35)
         .contentShape(Rectangle())
         .onHover { inside in
