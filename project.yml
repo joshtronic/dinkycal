@@ -21,7 +21,9 @@ targets:
     type: application
     platform: macOS
     sources:
-      - App
+      - path: App
+        excludes:
+          - "*.storekit"
     dependencies:
       - package: DinkyCalCore
       - package: KeyboardShortcuts
@@ -56,5 +58,6 @@ schemes:
         DinkyCal: all
     run:
       config: Debug
+      storeKitConfiguration: App/DinkyCal.storekit
     archive:
       config: Release

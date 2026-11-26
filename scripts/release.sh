@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
+# The direct build is compiled with DIRECT_DISTRIBUTION: "Support Dinky Cal" opens GitHub
+# Sponsors instead of the App Store tip jar (StoreKit only works in App Store builds).
+#
 # Cuts a Developer ID release: universal archive, Developer ID signing, notarization, stapling,
 # zip, and a draft GitHub Release. See RELEASING.md. (The App Store build goes through Xcode's
 # Organizer instead.)
@@ -43,6 +46,7 @@ xcodebuild archive \
     -project DinkyCal.xcodeproj -scheme DinkyCal -configuration Release \
     -archivePath "$ARCHIVE" -destination "generic/platform=macOS" \
     MARKETING_VERSION="$VERSION" CURRENT_PROJECT_VERSION="$BUILD_NUMBER" \
+    SWIFT_ACTIVE_COMPILATION_CONDITIONS='$(inherited) DIRECT_DISTRIBUTION' \
     ONLY_ACTIVE_ARCH=NO -quiet
 
 if $DRY_RUN; then

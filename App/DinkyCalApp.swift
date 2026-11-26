@@ -67,11 +67,12 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
             }
         }
         // Debug-only hook for screenshots: `open DinkyCal.app --args -openPopover YES`
-        if ["openPopover", "openSettings", "openAbout"].contains(where: UserDefaults.standard.bool(forKey:)) {
+        if ["openPopover", "openSettings", "openAbout", "openSupport"].contains(where: UserDefaults.standard.bool(forKey:)) {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
                 guard let self else { return }
                 if UserDefaults.standard.bool(forKey: "openSettings") { self.appMenu.openPreferences() }
                 if UserDefaults.standard.bool(forKey: "openAbout") { self.appMenu.openAbout() }
+                if UserDefaults.standard.bool(forKey: "openSupport") { self.appMenu.openSupport() }
                 self.statusController.showPopover()
                 let hover = UserDefaults.standard.integer(forKey: "previewHoverDays")
                 if hover != 0, let day = self.model.calendar.date(byAdding: .day, value: hover, to: self.model.today) {

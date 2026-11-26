@@ -66,6 +66,22 @@ Listing details: support URL `https://dinkycal.com/support`, privacy policy URL
 touches it. With Actions deploys, `site/CNAME` is not enough: set the custom domain once in the repo's
 Settings → Pages (`dinkycal.com`) and turn on Enforce HTTPS.
 
+## Tips
+
+Dinky Cal is free; support is optional and unlocks nothing.
+
+- **App Store build:** "Support Dinky Cal…" opens a tip jar with three consumable in-app purchases:
+  `com.joshtronic.dinkycal.tip.small` ($0.99), `.tip.medium` ($2.99), `.tip.large` ($4.99).
+  A tip shows a "Supporter" heart in About. Nothing is sent anywhere by the app; Apple handles
+  payment, so the privacy label stays **Data Not Collected**.
+- **Direct build** (`scripts/release.sh`, compiled with `DIRECT_DISTRIBUTION`): the same menu item
+  opens https://github.com/sponsors/joshtronic.
+- **Testing:** run from Xcode; the scheme uses `App/DinkyCal.storekit`, so purchases are simulated
+  locally (Debug → StoreKit → Manage Transactions to inspect or refund them). TestFlight builds use
+  the App Store sandbox.
+- **Review screenshot:** a debug build launched with `--args -openSupport YES -previewTips YES`
+  shows the tip window with its three prices.
+
 ## App icon
 
 The icon is drawn in code by `art/make-icon.swift`. After changing it, run `scripts/make-icon.sh`

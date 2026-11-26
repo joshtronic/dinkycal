@@ -1,6 +1,7 @@
 import SwiftUI
 
 struct AboutView: View {
+    var isSupporter = false
     private var version: String {
         let info = Bundle.main.infoDictionary
         let short = info?["CFBundleShortVersionString"] as? String ?? "?"
@@ -15,6 +16,11 @@ struct AboutView: View {
                 .frame(width: 88, height: 88)
             Text("Dinky Cal").font(.system(size: 20, weight: .bold))
             Text(version).font(.caption).foregroundStyle(.secondary)
+            if isSupporter {
+                Label("Supporter. Thank you!", systemImage: "heart.fill")
+                    .font(.system(size: 12, weight: .semibold))
+                    .foregroundStyle(.pink)
+            }
             Text("A tiny month calendar for your menu bar.")
                 .font(.system(size: 13))
             VStack(spacing: 4) {

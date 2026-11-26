@@ -6,6 +6,10 @@ import SwiftUI
 @MainActor
 final class AppMenu: NSObject {
     private let model: CalendarModel
+    #if !DIRECT_DISTRIBUTION
+    let tipJar = TipJar()
+    private var tipWindow: NSWindow?
+    #endif
     private var preferencesWindow: NSWindow?
     private var aboutWindow: NSWindow?
 
@@ -24,6 +28,7 @@ final class AppMenu: NSObject {
         menu.addItem(login)
         menu.addItem(item("Settings…", #selector(openPreferences), key: ","))
         menu.addItem(item("About Dinky Cal", #selector(openAbout)))
+        menu.addItem(item("Support Dinky Cal…", #selector(openSupport)))
         menu.addItem(.separator())
         menu.addItem(withTitle: "Quit Dinky Cal", action: #selector(NSApplication.terminate(_:)), keyEquivalent: "q")
         return menu
@@ -50,7 +55,23 @@ final class AppMenu: NSObject {
     }
 
     @objc func openAbout() {
-        aboutWindow = show(aboutWindow, title: "About Dinky Cal") { AboutView() }
+        #if DIRECT_DISTRIBUTION
+        aboutWindow = show(aboutWindow, title: "About Dinky Cal") { AboutView(isSupporter: false) }
+        #else
+        aboutWindow = show(aboutWindow, title: "About Dinky Cal") { AboutView(isSupporter: self.tipJar.isSupporter) }
+        #endif
+    }
+
+    /// App Store build: the tip jar. Direct build: GitHub Sponsors (StoreKit isn't available there).
+    @objc func openSupport() {
+        #if DIRECT_DISTRIBUTION
+        NSWorkspace.shared.open(URL(string: "https://github.com/sponsors/joshtronic")!)
+        #else
+        #if DEBUG
+        if UserDefaults.standard.bool(forKey: "previewTips") { tipJar.showPreviewItems() }
+        #endif
+        tipWindow = show(tipWindow, title: "Support Dinky Cal") { TipJarView(tipJar: self.tipJar) }
+        #endif
     }
 
     private func show<V: View>(_ existing: NSWindow?, title: String, content: () -> V) -> NSWindow {

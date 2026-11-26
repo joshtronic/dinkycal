@@ -1,0 +1,24 @@
+{
+  "identifier" : "6E0A6B7C-2B5D-4C3E-9C51-6D8B1A2F0001",
+  "nonRenewingSubscriptions" : [],
+  "products" : [
+    {
+      "displayPrice" : "0.99", "familyShareable" : false, "internalID" : "6E0A6B7C-0001",
+      "localizations" : [ { "description" : "A small thank-you. Unlocks nothing.", "displayName" : "Small Tip", "locale" : "en_US" } ],
+      "productID" : "com.joshtronic.dinkycal.tip.small", "referenceName" : "Tip – Small", "type" : "Consumable"
+    },
+    {
+      "displayPrice" : "2.99", "familyShareable" : false, "internalID" : "6E0A6B7C-0002",
+      "localizations" : [ { "description" : "A bigger thank-you. Unlocks nothing.", "displayName" : "Medium Tip", "locale" : "en_US" } ],
+      "productID" : "com.joshtronic.dinkycal.tip.medium", "referenceName" : "Tip – Medium", "type" : "Consumable"
+    },
+    {
+      "displayPrice" : "4.99", "familyShareable" : false, "internalID" : "6E0A6B7C-0003",
+      "localizations" : [ { "description" : "A huge thank-you. Unlocks nothing.", "displayName" : "Large Tip", "locale" : "en_US" } ],
+      "productID" : "com.joshtronic.dinkycal.tip.large", "referenceName" : "Tip – Large", "type" : "Consumable"
+    }
+  ],
+  "settings" : { "_failTransactionsEnabled" : false, "_locale" : "en_US", "_storefront" : "USA" },
+  "subscriptionGroups" : [],
+  "version" : { "major" : 4, "minor" : 0 }
+}
