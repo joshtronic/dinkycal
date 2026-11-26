@@ -85,6 +85,10 @@ struct PreferencesView: View {
             }
         }
         .formStyle(.grouped)
+        .onAppear { launchAtLogin = LaunchAtLogin.isEnabled }
+        .onReceive(NotificationCenter.default.publisher(for: NSWindow.didBecomeKeyNotification)) { _ in
+            launchAtLogin = LaunchAtLogin.isEnabled
+        }
         .frame(width: 460, height: 600)
     }
 

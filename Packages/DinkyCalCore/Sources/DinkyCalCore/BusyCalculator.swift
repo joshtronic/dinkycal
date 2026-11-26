@@ -17,8 +17,28 @@ public func countedEvents(on day: Date, from events: [CalendarEvent], calendar: 
 }
 
 public func computeBusy(on day: Date, events: [CalendarEvent], window: DayWindow, calendar: Calendar) -> DayBusy {
-    let counted = countedEvents(on: day, from: events, calendar: calendar)
+    let dayStart = calendar.startOfDay(for: day)
+    let dayEnd = calendar.date(byAdding: .day, value: 1, to: dayStart)!
+    return computeBusy(dayStart: dayStart, dayEnd: dayEnd, events: events, window: window, calendar: calendar)
+}
+
+/// Busy summary for many days at once. Calendar math runs once per day, not once per event,
+/// so the app can compute the whole grid when events change and read it cheaply on hover.
+public func busyByDay(_ days: [Date], events: [CalendarEvent], window: DayWindow, calendar: Calendar) -> [Date: DayBusy] {
+    let candidates = events.filter { !$0.isDeclined && !$0.isFree }
+    var result: [Date: DayBusy] = [:]
+    for day in days {
+        let dayStart = calendar.startOfDay(for: day)
+        let dayEnd = calendar.date(byAdding: .day, value: 1, to: dayStart)!
+        result[dayStart] = computeBusy(dayStart: dayStart, dayEnd: dayEnd, events: candidates, window: window, calendar: calendar)
+    }
+    return result
+}
+
+func computeBusy(dayStart: Date, dayEnd: Date, events: [CalendarEvent], window: DayWindow, calendar: Calendar) -> DayBusy {
+    let counted = events.filter { !$0.isDeclined && !$0.isFree && $0.overlaps(dayStart: dayStart, dayEnd: dayEnd) }
     guard !counted.isEmpty else { return .empty }
+    let day = dayStart
 
     let hasAllDay = counted.contains(where: \.isAllDay)
     let (windowStart, windowEnd) = window.bounds(on: day, calendar: calendar)

@@ -48,7 +48,8 @@ struct DayCell: View {
         .zIndex(isHovered ? 1 : 0)
         .accessibilityElement(children: .ignore)
         .accessibilityLabel(accessibilityText)
-        .accessibilityAddTraits(.isButton)
+        .accessibilityAddTraits(isSelected ? [.isButton, .isSelected] : .isButton)
+        .accessibilityAction { model.select(day.date) }
     }
 
     private var tooltipAlignment: Alignment {

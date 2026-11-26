@@ -152,6 +152,11 @@
     list.hidden = dayEvents.length === 0 || custom;
   }
 
+  const live = document.createElement("div");
+  live.className = "sr-only";
+  live.setAttribute("aria-live", "polite");
+  document.body.append(live);
+
   function select(day, focus) {
     if (cellsByDay[selected]) { cellsByDay[selected].classList.remove("selected"); cellsByDay[selected].tabIndex = -1; }
     selected = day;
@@ -160,6 +165,7 @@
     cell.tabIndex = 0;
     if (focus) cell.focus();
     show(day);
+    live.textContent = `${$("r-date").textContent}: ${$("r-dist").textContent}. ${$("r-busy").textContent}`;
   }
 
   monthEl.addEventListener("pointerover", (e) => {
@@ -196,8 +202,10 @@
   const peels = document.querySelectorAll(".peel");
   function disarm() { armed = 0; peels.forEach((p) => p.setAttribute("aria-pressed", "false")); }
 
+  let justDragged = false;
   peels.forEach((peel) => {
     peel.addEventListener("click", () => {
+      if (justDragged) { justDragged = false; return; }
       const level = +peel.dataset.level;
       const on = armed !== level;
       disarm();
@@ -229,18 +237,22 @@
           if (target) show(+target.dataset.day);
         }
       };
-      const up = () => {
+      const end = (ev) => {
         window.removeEventListener("pointermove", move);
-        window.removeEventListener("pointerup", up);
-        if (ghost) {
-          ghost.remove();
-          if (target) { target.classList.remove("drop-target"); stick(+target.dataset.day, level); select(+target.dataset.day, false); }
-          disarm();
-          peel.addEventListener("click", (ce) => ce.stopImmediatePropagation(), { once: true, capture: true });
-        }
+        window.removeEventListener("pointerup", end);
+        window.removeEventListener("pointercancel", end);
+        if (!ghost) return;
+        ghost.remove();
+        target?.classList.remove("drop-target");
+        if (ev.type === "pointerup" && target) { stick(+target.dataset.day, level); select(+target.dataset.day, false); }
+        disarm();
+        // A click may follow the drag; let the next click handler ignore it, then forget.
+        justDragged = true;
+        setTimeout(() => { justDragged = false; }, 0);
       };
       window.addEventListener("pointermove", move);
-      window.addEventListener("pointerup", up);
+      window.addEventListener("pointerup", end);
+      window.addEventListener("pointercancel", end);
     });
   });
 

@@ -25,7 +25,11 @@ public struct CalendarEvent: Hashable, Identifiable, Sendable {
     /// True if any part of the event falls on `day`. Zero-length events count on the day they start.
     public func overlaps(day: Date, calendar: Calendar) -> Bool {
         let dayStart = calendar.startOfDay(for: day)
-        let dayEnd = calendar.date(byAdding: .day, value: 1, to: dayStart)!
+        return overlaps(dayStart: dayStart, dayEnd: calendar.date(byAdding: .day, value: 1, to: dayStart)!)
+    }
+
+    /// Calendar-free overlap check against precomputed day bounds.
+    func overlaps(dayStart: Date, dayEnd: Date) -> Bool {
         if start == end { return start >= dayStart && start < dayEnd }
         return start < dayEnd && end > dayStart
     }

@@ -55,6 +55,15 @@ body {
 
 ::selection { background: var(--yellow); color: var(--ink); }
 
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
 a {
   color: var(--ink);
   text-decoration-color: var(--dot-2);
@@ -360,6 +369,15 @@ a:hover { text-decoration-color: var(--blue); }
   scrollbar-width: none;
 }
 .brew code::selection { background: var(--yellow); color: var(--ink); }
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
 .brew code .p { color: #8f97ad; user-select: none; }
 
 .copy {

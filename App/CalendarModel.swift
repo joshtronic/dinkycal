@@ -13,7 +13,10 @@ final class CalendarModel: ObservableObject {
     var closePopover: () -> Void = {}
     @Published private(set) var access: CalendarAccess
     /// Events covering the visible 42-day grid.
-    @Published private(set) var events: [CalendarEvent] = []
+    @Published private(set) var events: [CalendarEvent] = [] { didSet { rebuildBusy() } }
+    /// Busy summary per grid day, rebuilt only when events or the day window change,
+    /// so hovering (which re-renders every cell) stays cheap.
+    private var busyMap: [Date: DayBusy] = [:]
 
     let store: EventStoreService
     let preferences: Preferences
@@ -44,7 +47,12 @@ final class CalendarModel: ObservableObject {
     // MARK: Events
 
     func busy(for day: Date) -> DayBusy {
-        computeBusy(on: day, events: events, window: preferences.dayWindow, calendar: calendar)
+        busyMap[calendar.startOfDay(for: day)]
+            ?? computeBusy(on: day, events: events, window: preferences.dayWindow, calendar: calendar)
+    }
+
+    private func rebuildBusy() {
+        busyMap = busyByDay(grid.days.map(\.date), events: events, window: preferences.dayWindow, calendar: calendar)
     }
 
     func events(for day: Date) -> [CalendarEvent] {
@@ -124,7 +132,7 @@ final class CalendarModel: ObservableObject {
 
     /// Moves the selection by whole days, switching months when it leaves the current one.
     func moveSelection(byDays days: Int) {
-        let base = selectedDay ?? today
+        let base = selectedDay ?? (isOnCurrentMonth ? today : monthStart)
         guard let target = calendar.date(byAdding: .day, value: days, to: base) else { return }
         let targetMonth = startOfMonth(target, calendar: calendar)
         if targetMonth != monthStart { showMonth(targetMonth) }

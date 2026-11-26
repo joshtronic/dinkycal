@@ -93,3 +93,28 @@ final class BusyCalculatorTests: XCTestCase {
         XCTAssertEqual(b.level, 1)
     }
 }
+
+final class BusyMapTests: XCTestCase {
+    func test_busyMapMatchesPerDayComputation() {
+        let cal = nyCalendar()
+        let grid = makeMonthGrid(for: date(2026, 11, 1), today: date(2026, 11, 26), calendar: cal)
+        func ev(_ s: Date, _ e: Date, allDay: Bool = false, free: Bool = false) -> CalendarEvent {
+            CalendarEvent(id: UUID().uuidString, title: "e", start: s, end: e, isAllDay: allDay, calendarID: "c", isDeclined: false, isFree: free)
+        }
+        let events = [
+            ev(date(2026, 11, 3, 10), date(2026, 11, 3, 12)),
+            ev(date(2026, 11, 3, 11), date(2026, 11, 3, 14)),
+            ev(date(2026, 11, 24, 15), date(2026, 11, 29, 16)),
+            ev(date(2026, 11, 18), date(2026, 11, 20), allDay: true),
+            ev(date(2026, 11, 1, 0), date(2026, 11, 1, 3)),
+            ev(date(2026, 11, 7, 10), date(2026, 11, 7, 10)),
+            ev(date(2026, 11, 9, 9), date(2026, 11, 9, 17), free: true),
+        ]
+        let window = DayWindow.standard
+        let map = busyByDay(grid.days.map(\.date), events: events, window: window, calendar: cal)
+        XCTAssertEqual(map.count, 42)
+        for day in grid.days {
+            XCTAssertEqual(map[day.date], computeBusy(on: day.date, events: events, window: window, calendar: cal), "\(day.date)")
+        }
+    }
+}

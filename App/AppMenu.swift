@@ -80,6 +80,10 @@ enum LaunchAtLogin {
                 try SMAppService.mainApp.unregister()
             } else {
                 try SMAppService.mainApp.register()
+                // macOS may want the user to approve the login item first.
+                if SMAppService.mainApp.status == .requiresApproval {
+                    SMAppService.openSystemSettingsLoginItems()
+                }
             }
         } catch {
             let alert = NSAlert(error: error)

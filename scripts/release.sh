@@ -29,6 +29,8 @@ if ! $DRY_RUN; then
     [[ -z "$(git status --porcelain)" ]] || { echo "commit or stash your changes first" >&2; exit 1; }
     [[ "$(git branch --show-current)" == "main" ]] || { echo "release from main" >&2; exit 1; }
     ! git rev-parse -q --verify "refs/tags/$TAG" >/dev/null || { echo "$TAG already exists" >&2; exit 1; }
+    git fetch -q origin main
+    [[ "$(git rev-parse HEAD)" == "$(git rev-parse origin/main)" ]] || { echo "HEAD isn't origin/main; push or pull first" >&2; exit 1; }
     command -v gh >/dev/null || { echo "needs the GitHub CLI (brew install gh)" >&2; exit 1; }
 fi
 
@@ -72,11 +74,12 @@ echo "Built $ZIP"
 echo "sha256 $SHA"
 
 if ! $DRY_RUN; then
-    git tag -a "$TAG" -m "Dinky Cal $VERSION"
-    git push origin "$TAG"
     # DinkyCal.zip is a stable name, so releases/latest/download/DinkyCal.zip always works.
     cp -f "$ZIP" build/DinkyCal.zip
-    gh release create "$TAG" "$ZIP" build/DinkyCal.zip --draft --title "Dinky Cal $VERSION" --generate-notes
+    # The draft targets this exact commit; GitHub creates the tag when you publish it,
+    # so a failed upload never leaves a stray tag behind. Run `git fetch --tags` after publishing.
+    gh release create "$TAG" "$ZIP" build/DinkyCal.zip --draft --target "$(git rev-parse HEAD)" \
+        --title "Dinky Cal $VERSION" --generate-notes
     echo "Draft release $TAG created. Review and publish it on GitHub, then update the cask:"
     echo "  version \"$VERSION\""
     echo "  sha256 \"$SHA\""

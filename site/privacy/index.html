@@ -33,7 +33,7 @@
       <p>You can turn calendar access off any time in System Settings → Privacy &amp; Security → Calendars. Dinky Cal keeps working as a plain month calendar.</p>
 
       <h2>Your settings</h2>
-      <p>Your preferences (which calendars count, your busy hours, the hotkey) are saved on your Mac in the app's own settings file. Deleting the app deletes them.</p>
+      <p>Your preferences (which calendars count, your busy hours, the hotkey) are saved on your Mac in the app's own settings folder, <code>~/Library/Containers/com.joshtronic.dinkycal</code>. Moving the app to the Trash leaves that folder behind; delete it too to remove everything, or run <code>brew uninstall --cask --zap dinkycal</code> if you installed with Homebrew.</p>
 
       <h2>The network</h2>
       <p>Dinky Cal runs in Apple's app sandbox with only two permissions: the sandbox itself and reading calendars. It has no permission to use the network, so it can't send anything anywhere even if it wanted to. The source code is public on <a href="https://github.com/joshtronic/dinkycal">GitHub</a> if you'd like to check.</p>
