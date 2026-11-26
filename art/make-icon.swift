@@ -3,6 +3,8 @@ import AppKit
 
 let size: CGFloat = 1024
 let out = CommandLine.arguments.count > 1 ? CommandLine.arguments[1] : "icon-1024.png"
+let hasFeet = true
+let hasHat = true
 
 func color(_ hex: UInt32, _ alpha: CGFloat = 1) -> NSColor {
     NSColor(srgbRed: CGFloat((hex >> 16) & 0xff) / 255, green: CGFloat((hex >> 8) & 0xff) / 255,
@@ -30,12 +32,12 @@ NSGraphicsContext.restoreGraphicsState()
 NSGradient(starting: color(0xFFD86B), ending: color(0xFFB238))!.draw(in: bodyPath, angle: -90)
 
 // The dinky calendar page.
-let page = NSRect(x: 292, y: 318, width: 440, height: 420)
+let page = hasHat ? NSRect(x: 292, y: hasFeet ? 260 : 220, width: 440, height: 400) : NSRect(x: 292, y: 318, width: 440, height: 420)
 let pagePath = NSBezierPath(roundedRect: page, xRadius: 64, yRadius: 64)
 
 // Feet first so the page overlaps them.
 color(0x3B2A1A).setFill()
-for x in [page.midX - 110, page.midX + 42] {
+for x in (hasFeet ? [page.midX - 110, page.midX + 42] : []) {
     NSBezierPath(roundedRect: NSRect(x: x, y: page.minY - 64, width: 68, height: 92), xRadius: 30, yRadius: 30).fill()
     NSBezierPath(roundedRect: NSRect(x: x - (x < page.midX ? 26 : 0), y: page.minY - 70, width: 94, height: 40), xRadius: 20, yRadius: 20).fill()
 }
@@ -53,14 +55,54 @@ NSGraphicsContext.restoreGraphicsState()
 // Header band.
 NSGraphicsContext.saveGraphicsState()
 pagePath.addClip()
-color(0xE5484D).setFill()
+(hasHat ? color(0x2F6FEB) : color(0xE5484D)).setFill()
 NSRect(x: page.minX, y: page.maxY - 118, width: page.width, height: 118).fill()
 NSGraphicsContext.restoreGraphicsState()
 
 // Binder rings.
 color(0x3B2A1A).setFill()
-for x in [page.minX + 112, page.maxX - 112] {
+for x in (hasHat ? [] : [page.minX + 112, page.maxX - 112]) {
     NSBezierPath(roundedRect: NSRect(x: x - 17, y: page.maxY - 40, width: 34, height: 84), xRadius: 17, yRadius: 17).fill()
+}
+
+
+// A garden-gnome hat, tipped to one side.
+if hasHat {
+    NSGraphicsContext.saveGraphicsState()
+    let t = NSAffineTransform()
+    t.translateX(by: page.midX + 4, yBy: page.maxY - 26)
+    t.rotate(byDegrees: -9)
+    t.concat()
+    // Tall cone whose tip flops over to the right.
+    let cone = NSBezierPath()
+    cone.move(to: NSPoint(x: -150, y: 0))
+    cone.curve(to: NSPoint(x: 10, y: 232), controlPoint1: NSPoint(x: -110, y: 92), controlPoint2: NSPoint(x: -52, y: 190))
+    cone.curve(to: NSPoint(x: 112, y: 214), controlPoint1: NSPoint(x: 52, y: 262), controlPoint2: NSPoint(x: 96, y: 250))
+    cone.curve(to: NSPoint(x: 66, y: 176), controlPoint1: NSPoint(x: 118, y: 196), controlPoint2: NSPoint(x: 92, y: 182))
+    cone.curve(to: NSPoint(x: 150, y: 0), controlPoint1: NSPoint(x: 104, y: 120), controlPoint2: NSPoint(x: 134, y: 60))
+    cone.close()
+    let hatShadow = NSShadow()
+    hatShadow.shadowColor = color(0x7A1A1A, 0.35)
+    hatShadow.shadowBlurRadius = 14
+    hatShadow.shadowOffset = NSSize(width: 0, height: -6)
+    hatShadow.set()
+    NSGradient(starting: color(0xF2605F), ending: color(0xC9303A))!.draw(in: cone, angle: -20)
+    NSShadow().set()
+    // Soft highlight down the left side of the cone.
+    NSGraphicsContext.saveGraphicsState()
+    cone.addClip()
+    let shine = NSBezierPath()
+    shine.move(to: NSPoint(x: -150, y: 0))
+    shine.curve(to: NSPoint(x: 10, y: 232), controlPoint1: NSPoint(x: -110, y: 92), controlPoint2: NSPoint(x: -52, y: 190))
+    shine.curve(to: NSPoint(x: -70, y: 0), controlPoint1: NSPoint(x: -40, y: 160), controlPoint2: NSPoint(x: -66, y: 80))
+    shine.close()
+    color(0xFFFFFF, 0.16).setFill()
+    shine.fill()
+    NSGraphicsContext.restoreGraphicsState()
+    // brim
+    color(0xA8262D).setFill()
+    NSBezierPath(roundedRect: NSRect(x: -165, y: -18, width: 330, height: 40), xRadius: 20, yRadius: 20).fill()
+    NSGraphicsContext.restoreGraphicsState()
 }
 
 // Heatmap dots: 4 columns × 3 rows at varying intensity.
