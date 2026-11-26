@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Privacy · Dinky Cal</title>
+  <meta name="description" content="Dinky Cal collects nothing. Your calendar data stays on your Mac.">
+  <link rel="icon" href="/img/favicon.png" type="image/png">
+  <link rel="preload" href="/fonts/gabarito-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <header class="wrap top">
+    <a class="brand" href="/"><img src="/img/icon-256.png" alt="" width="34" height="34">Dinky Cal</a>
+    <nav class="nav" aria-label="Site">
+      <a href="/">Home</a>
+      <a href="/privacy/" aria-current="page">Privacy</a>
+      <a href="/support/">Support</a>
+      <a href="https://github.com/joshtronic/dinkycal">Source</a>
+    </nav>
+  </header>
+
+  <main class="wrap doc">
+    <div class="label title">
+      <h1>Privacy</h1>
+      <p>Short, because there's nothing to collect.</p>
+    </div>
+    <article>
+      <p class="big">Dinky Cal doesn't collect, store, send, or sell any of your data. It has no accounts, no analytics, and no network access at all.</p>
+
+      <h2>Your calendars</h2>
+      <p>To show which days are busy, Dinky Cal asks macOS for permission to read your calendars. It reads events for the month you're looking at, works out the dots, and shows them to you. That happens entirely on your Mac. Nothing is written to your calendars and nothing leaves your computer.</p>
+      <p>You can turn calendar access off any time in System Settings → Privacy &amp; Security → Calendars. Dinky Cal keeps working as a plain month calendar.</p>
+
+      <h2>Your settings</h2>
+      <p>Your preferences (which calendars count, your busy hours, the hotkey) are saved on your Mac in the app's own settings file. Deleting the app deletes them.</p>
+
+      <h2>The network</h2>
+      <p>Dinky Cal runs in Apple's app sandbox with only two permissions: the sandbox itself and reading calendars. It has no permission to use the network, so it can't send anything anywhere even if it wanted to. The source code is public on <a href="https://github.com/joshtronic/dinkycal">GitHub</a> if you'd like to check.</p>
+
+      <h2>This website</h2>
+      <p>dinkycal.com is a static page hosted on GitHub Pages. It uses no cookies, analytics, or trackers, and loads nothing from other sites. GitHub may keep standard server logs; see <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement">GitHub's privacy statement</a>.</p>
+
+      <h2>Questions</h2>
+      <p>Email <a href="mailto:hello@dinkycal.com">hello@dinkycal.com</a>.</p>
+      <p><small>Last updated November 26, 2026.</small></p>
+    </article>
+  </main>
+
+  <footer class="wrap foot">
+    <span>Made by <a href="https://joshtronic.com/">joshtronic</a>. Free software under the GPL-3.0-or-later.</span>
+    <span><a href="/privacy/">Privacy</a> · <a href="/support/">Support</a> · <a href="mailto:hello@dinkycal.com">hello@dinkycal.com</a></span>
+  </footer>
+</body>
+</html>
