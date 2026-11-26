@@ -42,6 +42,18 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
                 guard let self else { return }
                 if UserDefaults.standard.bool(forKey: "demo") { self.model.loadDemo() }
+                if let iconPath = UserDefaults.standard.string(forKey: "iconPath") {
+                    let icon = StatusIcon.image(day: self.model.calendar.component(.day, from: self.model.today), style: .date)
+                    let rep = NSBitmapImageRep(bitmapDataPlanes: nil, pixelsWide: 76, pixelsHigh: 64, bitsPerSample: 8,
+                                               samplesPerPixel: 4, hasAlpha: true, isPlanar: false,
+                                               colorSpaceName: .deviceRGB, bytesPerRow: 0, bitsPerPixel: 0)!
+                    rep.size = icon.size
+                    NSGraphicsContext.saveGraphicsState()
+                    NSGraphicsContext.current = NSGraphicsContext(bitmapImageRep: rep)
+                    icon.draw(in: NSRect(origin: .zero, size: icon.size))
+                    NSGraphicsContext.restoreGraphicsState()
+                    try? rep.representation(using: .png, properties: [:])?.write(to: URL(fileURLWithPath: iconPath))
+                }
                 let hover = UserDefaults.standard.integer(forKey: "previewHoverDays")
                 if hover != 0 { self.model.hoveredDay = self.model.calendar.date(byAdding: .day, value: hover, to: self.model.today) }
                 let view = PopoverView()

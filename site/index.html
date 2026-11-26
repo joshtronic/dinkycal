@@ -17,7 +17,7 @@
   <header class="wrap top">
     <a class="brand" href="/"><img src="/img/icon-256.png" alt="" width="34" height="34">Dinky Cal</a>
     <nav class="nav" aria-label="Site">
-      <a href="#dots">How the dots work</a>
+      <a href="#dots">How it works</a>
       <a href="#price">Get it</a>
       <a href="/support/">Support</a>
       <a href="https://github.com/joshtronic/dinkycal">Source</a>
@@ -25,63 +25,57 @@
   </header>
 
   <main>
-    <section class="wrap planner" aria-labelledby="title">
-      <div class="planner-head">
+    <section class="wrap hero" aria-labelledby="title">
+      <div>
         <div class="label name-label">
           <h1 id="title">Dinky <span class="cal">Cal</span></h1>
           <p>A tiny month calendar behind the date in your Mac's menu bar. The brighter a day, the busier it is.</p>
         </div>
-        <aside class="readout" aria-label="Selected day">
-          <div class="r-date" id="r-date">Today</div>
-          <div class="r-dist" id="r-dist">Today</div>
-          <div class="r-busy" id="r-busy"></div>
-          <ul id="r-events" hidden></ul>
-        </aside>
+        <div class="get">
+          <a class="store" href="https://apps.apple.com/us/search?term=Dinky%20Cal">
+            <b>Mac App Store</b>
+            <span>Free, with an optional tip jar</span>
+          </a>
+          <div class="brew">
+            <code id="brew-cmd"><span class="p">$ </span>brew install --cask joshtronic/tap/dinkycal</code>
+            <button class="copy" type="button" data-copy="brew install --cask joshtronic/tap/dinkycal">
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="5" y="5" width="8.5" height="8.5" rx="2"/><path d="M10.5 3.2V3a1.5 1.5 0 0 0-1.5-1.5H4A1.5 1.5 0 0 0 2.5 3v5A1.5 1.5 0 0 0 4 9.5h.3"/></svg>
+              <span>Copy</span>
+            </button>
+          </div>
+          <p class="or">Or <a href="https://github.com/joshtronic/dinkycal/releases/latest">download it from GitHub</a>. Needs macOS 14 Sonoma or later.</p>
+        </div>
       </div>
 
-      <div class="page">
-        <div class="page-meta">
-          <h2 id="month-title">This month</h2>
-          <small>Demo calendar. Hover a day. Your real one never leaves your Mac.</small>
-        </div>
-        <div class="weekdays" id="weekdays" aria-hidden="true"></div>
-        <div class="month" id="month" role="group" aria-labelledby="month-title"></div>
-
-        <div class="tab">
-          <div class="sheet">
-            <div class="sheet-dots" role="group" aria-label="Sticker dots">
-              <button class="dot peel" data-level="1" aria-pressed="false" aria-label="Under 2 hours dot"></button>
-              <button class="dot peel" data-level="2" aria-pressed="false" aria-label="2 to 4 hours dot"></button>
-              <button class="dot peel" data-level="3" aria-pressed="false" aria-label="4 to 6 hours dot"></button>
-              <button class="dot peel" data-level="4" aria-pressed="false" aria-label="6 hours or more dot"></button>
-            </div>
-            <p>Peel a dot and stick it on a date. Go on, plan something.</p>
-          </div>
-          <div class="get">
-            <div class="brew">
-              <code id="brew-cmd"><span class="p">$ </span>brew install --cask joshtronic/tap/dinkycal</code>
-              <button class="copy" type="button" data-copy="brew install --cask joshtronic/tap/dinkycal">
-                <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="5" y="5" width="8.5" height="8.5" rx="2"/><path d="M10.5 3.2V3a1.5 1.5 0 0 0-1.5-1.5H4A1.5 1.5 0 0 0 2.5 3v5A1.5 1.5 0 0 0 4 9.5h.3"/></svg>
-                <span>Copy</span>
-              </button>
-            </div>
-            <span class="store">
-              <b>Mac App Store</b>
-              <span>Free · coming soon</span>
+      <figure class="stage" aria-label="Animation: the Dinky Cal icon in the menu bar is clicked, the month calendar opens, and hovering December 3 shows In 7 days.">
+        <div class="scene" aria-hidden="true">
+          <div class="mb">
+            <span class="app">Notes</span><span class="menu">File</span><span class="menu">Edit</span><span class="menu">View</span>
+            <span class="right">
+              <svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M2.5 7.2a9.5 9.5 0 0 1 13 0M5 9.8a6 6 0 0 1 8 0M7.4 12.3a2.6 2.6 0 0 1 3.2 0"/><circle cx="9" cy="14.6" r="0.9" fill="currentColor" stroke="none"/></svg>
+              <svg viewBox="0 0 26 18" style="width:26px"><rect x="1" y="4.5" width="21" height="10" rx="3" fill="none" stroke="currentColor" stroke-width="1.4" opacity=".55"/><rect x="3" y="6.5" width="14" height="6" rx="1.5" fill="currentColor"/><rect x="23" y="8" width="2" height="3.5" rx="1" fill="currentColor" opacity=".55"/></svg>
+              <span class="dc"><img src="/img/menubar-icon.png" width="19" height="16" alt=""></span>
+              <span class="clock">Thu Nov 26&nbsp;&nbsp;9:41 AM</span>
             </span>
           </div>
+          <div class="pop">
+            <img src="/img/popover.webp" width="300" height="464" alt="">
+            <img class="hover" src="/img/popover-hover.webp" width="300" height="464" alt="">
+          </div>
+          <svg class="cursor" viewBox="0 0 22 30"><path d="M2 2v22l6-5.5 4 9 3.5-1.6-4-8.8H19z" fill="#17191f" stroke="#fff" stroke-width="1.6" stroke-linejoin="round"/></svg>
         </div>
-      </div>
+        <figcaption>The real app, demo calendar</figcaption>
+      </figure>
     </section>
 
     <section class="wrap section" id="dots" aria-labelledby="dots-title">
-      <h2 id="dots-title">Brighter dot, busier day.</h2>
+      <h2 id="dots-title">Brighter day, busier day.</h2>
       <p class="lede">Dinky Cal counts the hours you're booked, not how many things are on the list. Five quick calls and one long workshop shouldn't look the same.</p>
       <div class="legend">
-        <div><span class="dot" data-level="1"></span><span><b>A little</b><small>under 2 hours</small></span></div>
-        <div><span class="dot" data-level="2"></span><span><b>Some</b><small>2 to 4 hours</small></span></div>
-        <div><span class="dot" data-level="3"></span><span><b>A lot</b><small>4 to 6 hours</small></span></div>
-        <div><span class="dot" data-level="4"></span><span><b>Booked</b><small>6+ hours or all day</small></span></div>
+        <div><span class="dot" data-level="1">2</span><span><b>A little</b><small>under 2 hours</small></span></div>
+        <div><span class="dot" data-level="2">19</span><span><b>Some</b><small>2 to 4 hours</small></span></div>
+        <div><span class="dot" data-level="3">10</span><span><b>A lot</b><small>4 to 6 hours</small></span></div>
+        <div><span class="dot" data-level="4">18</span><span><b>Booked</b><small>6+ hours or all day</small></span></div>
       </div>
       <ul class="rules">
         <li><span><b>Overlaps count once.</b> Two meetings at 10am are one busy hour, not two.</span></li>
@@ -92,25 +86,17 @@
     </section>
 
     <section class="wrap section" aria-labelledby="real-title">
-      <div class="real">
-        <figure class="shot">
-          <div class="menubar" aria-hidden="true"><span>Thu Nov 26</span><span class="mb-icon on" id="mb-day">26</span><span>9:41</span></div>
-          <img src="/img/popover.png" width="300" height="464" alt="The Dinky Cal popover: November 2026 with busy days filled in shades of blue, today the 26th selected, and today's three events listed below.">
-          <figcaption>The actual app (demo calendar)</figcaption>
-        </figure>
-        <div>
-          <h2 id="real-title">Click the date. That's the whole app.</h2>
-          <p class="lede">It reads the calendars your Mac already has: iCloud, Google, Exchange, anything in Internet Accounts. No sign-in, no setup.</p>
-          <ul class="strips">
-            <li><b>Hover a day</b><span>How far away it is and how busy it is, instantly.</span></li>
-            <li><b>Click a day</b><span>A ring goes around it and its events list below.</span></li>
-            <li><b>Pick your calendars</b><span>Leave out the shared family calendar or the garbage-day reminders.</span></li>
-            <li><b>Week numbers</b><span>Optional, down the right side, following your Mac's own week settings.</span></li>
-            <li><b>A hotkey</b><span>Set one and the month pops open from anywhere.</span></li>
-            <li><b>Your accent color</b><span>Dots and today follow whatever color you picked in System Settings.</span></li>
-          </ul>
-        </div>
-      </div>
+      <h2 id="real-title">Click the date. That's the whole app.</h2>
+      <p class="lede">It reads the calendars your Mac already has: iCloud, Google, Exchange, anything in Internet Accounts. No sign-in, no setup.</p>
+      <ul class="strips">
+        <li><b>Hover a day</b><span>How far away it is and how busy it is, instantly.</span></li>
+        <li><b>Click a day</b><span>A ring goes around it and its events list below.</span></li>
+        <li><b>Pick your calendars</b><span>Leave out the shared family calendar or the garbage-day reminders.</span></li>
+        <li><b>Weekends, dimmed</b><span>Follows your region, or pick your own weekend days.</span></li>
+        <li><b>Week numbers</b><span>Optional, down the right side, following your Mac's own week settings.</span></li>
+        <li><b>A hotkey</b><span>Set one and the month pops open from anywhere.</span></li>
+        <li><b>Your accent color</b><span>Busy days and today follow the color you picked in System Settings.</span></li>
+      </ul>
     </section>
 
     <section class="wrap section" aria-labelledby="small-title">
@@ -141,8 +127,9 @@
         <div class="label">
           <div class="amt">Tip</div>
           <h3>Whatever it's worth to you</h3>
-          <p>Tip in the App Store version ($0.99, $2.99, or $4.99), or sponsor on GitHub. You get a little heart in the About window and our sincere thanks. The App Store version is coming soon.</p>
+          <p>Tip in the App Store version ($0.99, $2.99, or $4.99), or sponsor on GitHub. You get a little heart in the About window and our sincere thanks.</p>
           <div class="links">
+            <a href="https://apps.apple.com/us/search?term=Dinky%20Cal">Get it on the Mac App Store</a>
             <a href="https://github.com/sponsors/joshtronic">Sponsor on GitHub</a>
           </div>
         </div>
