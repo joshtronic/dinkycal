@@ -1,0 +1,60 @@
+name: DinkyCal
+options:
+  bundleIdPrefix: com.joshtronic
+  deploymentTarget:
+    macOS: "14.0"
+  createIntermediateGroups: true
+settings:
+  base:
+    DEVELOPMENT_TEAM: S4F666RB9G
+    MARKETING_VERSION: 1.0.0
+    CURRENT_PROJECT_VERSION: 1
+    SWIFT_VERSION: 5.0
+packages:
+  DinkyCalCore:
+    path: Packages/DinkyCalCore
+  KeyboardShortcuts:
+    url: https://github.com/sindresorhus/KeyboardShortcuts
+    from: 2.0.0
+targets:
+  DinkyCal:
+    type: application
+    platform: macOS
+    sources:
+      - App
+    dependencies:
+      - package: DinkyCalCore
+      - package: KeyboardShortcuts
+    info:
+      path: App/Resources/Info.plist
+      properties:
+        CFBundleDisplayName: Dinky Cal
+        CFBundleName: DinkyCal
+        CFBundleShortVersionString: $(MARKETING_VERSION)
+        CFBundleVersion: $(CURRENT_PROJECT_VERSION)
+        LSUIElement: true
+        LSApplicationCategoryType: public.app-category.productivity
+        NSHumanReadableCopyright: Copyright © 2026 Josh Sherman. GPL-3.0-or-later.
+        NSCalendarsFullAccessUsageDescription: Dinky Cal reads your calendars to show how busy each day is. Your data never leaves your Mac.
+    entitlements:
+      path: App/Resources/DinkyCal.entitlements
+      properties:
+        com.apple.security.app-sandbox: true
+        com.apple.security.personal-information.calendars: true
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.joshtronic.dinkycal
+        PRODUCT_NAME: DinkyCal
+        CODE_SIGN_STYLE: Automatic
+        ENABLE_HARDENED_RUNTIME: YES
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        COMBINE_HIDPI_IMAGES: YES
+schemes:
+  DinkyCal:
+    build:
+      targets:
+        DinkyCal: all
+    run:
+      config: Debug
+    archive:
+      config: Release
