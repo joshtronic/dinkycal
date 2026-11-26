@@ -16,10 +16,18 @@ struct DayCell: View {
                     if day.isToday { Circle().fill(Color.accentColor) }
                 }
             Circle()
-                .fill(Color.clear)
-                .frame(width: 5, height: 5)
+                .fill(HeatDot.color(level: model.busy(for: day.date).level))
+                .frame(width: 6, height: 6)
         }
         .frame(height: 36)
         .opacity(day.isInMonth ? 1 : 0.35)
+    }
+}
+
+enum HeatDot {
+    /// Accent color at four intensity steps; level 0 draws nothing.
+    static func color(level: Int) -> Color {
+        let opacity: [Double] = [0, 0.3, 0.5, 0.75, 1]
+        return Color(nsColor: .controlAccentColor).opacity(opacity[min(max(level, 0), 4)])
     }
 }

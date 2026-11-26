@@ -1,23 +1,79 @@
+import Combine
 import DinkyCalCore
 import Foundation
 
 @MainActor
 final class CalendarModel: ObservableObject {
-    @Published private(set) var monthStart: Date
+    @Published private(set) var monthStart: Date { didSet { if monthStart != oldValue { loadEvents() } } }
     @Published private(set) var today: Date
     @Published var selectedDay: Date?
+    @Published private(set) var access: CalendarAccess
+    /// Events covering the visible 42-day grid.
+    @Published private(set) var events: [CalendarEvent] = []
 
+    let store: EventStoreService
+    let preferences: Preferences
     private let now: () -> Date
+    private var cache: [Date: [CalendarEvent]] = [:]
+    private var cancellables = Set<AnyCancellable>()
 
     var calendar: Calendar { Calendar.autoupdatingCurrent }
 
-    init(now: @escaping () -> Date = Date.init) {
+    init(store: EventStoreService, preferences: Preferences, now: @escaping () -> Date = Date.init) {
+        self.store = store
+        self.preferences = preferences
         self.now = now
         let cal = Calendar.autoupdatingCurrent
         let today = cal.startOfDay(for: now())
         self.today = today
         self.monthStart = startOfMonth(today, calendar: cal)
         self.selectedDay = today
+        self.access = store.access
+
+        store.onChange = { [weak self] in self?.reloadEvents() }
+        preferences.objectWillChange
+            .sink { [weak self] _ in DispatchQueue.main.async { self?.reloadEvents() } }
+            .store(in: &cancellables)
+        loadEvents()
+    }
+
+    // MARK: Events
+
+    func busy(for day: Date) -> DayBusy {
+        computeBusy(on: day, events: events, window: preferences.dayWindow, calendar: calendar)
+    }
+
+    func events(for day: Date) -> [CalendarEvent] {
+        eventsForList(on: day, events: events, calendar: calendar)
+    }
+
+    var includedCalendarIDs: Set<String> {
+        DinkyCalCore.includedCalendarIDs(all: store.calendars(),
+                                         userExcluded: preferences.userExcludedCalendarIDs,
+                                         userIncluded: preferences.userIncludedCalendarIDs)
+    }
+
+    /// Drops cached months and refetches (calendar data, access, or preferences changed).
+    func reloadEvents() {
+        access = store.access
+        cache.removeAll()
+        loadEvents()
+    }
+
+    func requestAccess() async {
+        access = await store.requestAccess()
+        reloadEvents()
+    }
+
+    private func loadEvents() {
+        guard access == .granted else { events = []; return }
+        if let cached = cache[monthStart] { events = cached; return }
+        let days = grid.days
+        guard let first = days.first?.date, let last = days.last?.date,
+              let end = calendar.date(byAdding: .day, value: 1, to: last) else { return }
+        let fetched = store.events(from: first, to: end, calendarIDs: includedCalendarIDs)
+        cache[monthStart] = fetched
+        events = fetched
     }
 
     var grid: MonthGrid { makeMonthGrid(for: monthStart, today: today, calendar: calendar) }
@@ -28,6 +84,7 @@ final class CalendarModel: ObservableObject {
     func showNextMonth() { showMonth(shiftMonth(monthStart, by: 1, calendar: calendar)) }
 
     func goToToday() {
+        if store.access != access { reloadEvents() }
         refreshToday()
         monthStart = startOfMonth(today, calendar: calendar)
         selectedDay = today

@@ -9,9 +9,12 @@
 /* Begin PBXBuildFile section */
 		035DA51FEC99D5982115DE9A /* KeyboardShortcuts in Frameworks */ = {isa = PBXBuildFile; productRef = 5CAEA13EDDD470DA9DE622AF /* KeyboardShortcuts */; };
 		3A2CE300B4C0AD0DF4FA3ADA /* MonthHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8A4503269271BBEB6953AA0 /* MonthHeaderView.swift */; };
+		5C0802776043F7A0C344988F /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F51F8E58639CB4FF52759B9 /* Preferences.swift */; };
 		5CA24418A39BF4B9AB2F0DEF /* AppMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3EFD44259B41FA6A6B4075A /* AppMenu.swift */; };
 		7461DDB424D17FADD0494D36 /* DinkyCalApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B693D76ACA2D60996194A7E /* DinkyCalApp.swift */; };
+		80DB86D9681430235DE874F8 /* AccessPromptView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C84BCBB4B05F404CC71A4A8 /* AccessPromptView.swift */; };
 		825871D68C8540BC3DA4660D /* CalendarModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F442366D9EB19D08A0807B2F /* CalendarModel.swift */; };
+		84317B4C3BC559BDEF623EDE /* EventStoreService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0258E3EA16E7D14D128BB5AD /* EventStoreService.swift */; };
 		9B9B0E35A1ED381F480D7037 /* StatusIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C2E3D8D22331AF3F370AAFC /* StatusIcon.swift */; };
 		A1546C2790085E95730F298E /* DinkyCalCore in Frameworks */ = {isa = PBXBuildFile; productRef = A6278B2D587AA81803689D53 /* DinkyCalCore */; };
 		BCBE7E825D331EB76CE22298 /* StatusItemController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9AFD5AD48901BE69D58F531 /* StatusItemController.swift */; };
@@ -21,14 +24,17 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0258E3EA16E7D14D128BB5AD /* EventStoreService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventStoreService.swift; sourceTree = "<group>"; };
 		0B693D76ACA2D60996194A7E /* DinkyCalApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DinkyCalApp.swift; sourceTree = "<group>"; };
 		1F8424AB92150EE4B7443D19 /* DinkyCal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DinkyCal.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		31C4F67D0FC2076261C298B2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		35DE4FDF4A26E09CA49AAA4D /* DinkyCal.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DinkyCal.entitlements; sourceTree = "<group>"; };
 		3B0DA131A82F38CC47C67F48 /* MonthGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthGridView.swift; sourceTree = "<group>"; };
 		7C2E3D8D22331AF3F370AAFC /* StatusIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusIcon.swift; sourceTree = "<group>"; };
+		7C84BCBB4B05F404CC71A4A8 /* AccessPromptView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessPromptView.swift; sourceTree = "<group>"; };
 		89D25C86525C83A7534591AA /* PopoverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopoverView.swift; sourceTree = "<group>"; };
 		8D800D2B0B07262919BD9795 /* DayCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayCell.swift; sourceTree = "<group>"; };
+		8F51F8E58639CB4FF52759B9 /* Preferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
 		C9AFD5AD48901BE69D58F531 /* StatusItemController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusItemController.swift; sourceTree = "<group>"; };
 		D3EFD44259B41FA6A6B4075A /* AppMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppMenu.swift; sourceTree = "<group>"; };
 		D8A4503269271BBEB6953AA0 /* MonthHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthHeaderView.swift; sourceTree = "<group>"; };
@@ -61,6 +67,7 @@
 		39AA070DEEE187C785004571 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				7C84BCBB4B05F404CC71A4A8 /* AccessPromptView.swift */,
 				8D800D2B0B07262919BD9795 /* DayCell.swift */,
 				3B0DA131A82F38CC47C67F48 /* MonthGridView.swift */,
 				D8A4503269271BBEB6953AA0 /* MonthHeaderView.swift */,
@@ -75,6 +82,8 @@
 				D3EFD44259B41FA6A6B4075A /* AppMenu.swift */,
 				F442366D9EB19D08A0807B2F /* CalendarModel.swift */,
 				0B693D76ACA2D60996194A7E /* DinkyCalApp.swift */,
+				0258E3EA16E7D14D128BB5AD /* EventStoreService.swift */,
+				8F51F8E58639CB4FF52759B9 /* Preferences.swift */,
 				7C2E3D8D22331AF3F370AAFC /* StatusIcon.swift */,
 				C9AFD5AD48901BE69D58F531 /* StatusItemController.swift */,
 				2C115E7E915D9BE12E1779BE /* Resources */,
@@ -174,13 +183,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				80DB86D9681430235DE874F8 /* AccessPromptView.swift in Sources */,
 				5CA24418A39BF4B9AB2F0DEF /* AppMenu.swift in Sources */,
 				825871D68C8540BC3DA4660D /* CalendarModel.swift in Sources */,
 				CC3E98DD09AF9FB73D3A973C /* DayCell.swift in Sources */,
 				7461DDB424D17FADD0494D36 /* DinkyCalApp.swift in Sources */,
+				84317B4C3BC559BDEF623EDE /* EventStoreService.swift in Sources */,
 				D8E26CDD21D2DB7CAA3CF647 /* MonthGridView.swift in Sources */,
 				3A2CE300B4C0AD0DF4FA3ADA /* MonthHeaderView.swift in Sources */,
 				C0C9D1D509D73F8A3820A45A /* PopoverView.swift in Sources */,
+				5C0802776043F7A0C344988F /* Preferences.swift in Sources */,
 				9B9B0E35A1ED381F480D7037 /* StatusIcon.swift in Sources */,
 				BCBE7E825D331EB76CE22298 /* StatusItemController.swift in Sources */,
 			);

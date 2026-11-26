@@ -1,4 +1,5 @@
 import AppKit
+import Combine
 
 @main
 @MainActor
@@ -14,12 +15,19 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         app.run()
     }
 
+    private var preferences: Preferences!
+    private var cancellables = Set<AnyCancellable>()
     private var model: CalendarModel!
     private var statusController: StatusItemController!
 
     func applicationDidFinishLaunching(_ notification: Notification) {
-        model = CalendarModel()
+        preferences = Preferences()
+        model = CalendarModel(store: EventStoreService(), preferences: preferences)
         statusController = StatusItemController(model: model)
+        statusController.iconStyle = preferences.iconStyle
+        preferences.$iconStyle
+            .sink { [weak self] style in self?.statusController.iconStyle = style }
+            .store(in: &cancellables)
         #if DEBUG
         // Debug-only hook for screenshots: `open DinkyCal.app --args -openPopover YES`
         if UserDefaults.standard.bool(forKey: "openPopover") {
