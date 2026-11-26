@@ -11,12 +11,15 @@ Accounts) and never sends anything anywhere.
 
 ## Install
 
-- **Mac App Store**: $0.99, if you'd like to chip in.
+- **Mac App Store**: free, with an optional tip jar inside (coming soon).
 - **Homebrew**: `brew install --cask joshtronic/tap/dinkycal`
 - **GitHub**: download the latest zip from
   [Releases](https://github.com/joshtronic/dinkycal/releases).
 
 Requires macOS 14 Sonoma or later.
+
+Everything is free. If you'd like to support it, tip in the App Store version or
+[sponsor on GitHub](https://github.com/sponsors/joshtronic).
 
 ## Build from source
 

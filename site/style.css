@@ -561,6 +561,7 @@ a:hover { text-decoration-color: var(--blue); }
 .price > div:first-child { transform: rotate(-0.8deg); }
 .price > div:last-child { transform: rotate(0.9deg); background: var(--yellow); }
 .price .amt { font: 900 3.5rem/0.9 var(--display); letter-spacing: -0.03em; }
+#price h2 { max-width: 22ch; }
 .price h3 { font: 800 1.25rem/1.2 var(--display); margin: 12px 0 6px; }
 .price p { margin: 0 0 16px; color: var(--ink-2); }
 .price > div:last-child p { color: #4a3700; }
