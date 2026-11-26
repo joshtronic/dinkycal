@@ -27,7 +27,7 @@ struct DayCell: View {
 enum HeatDot {
     /// Accent color at four intensity steps; level 0 draws nothing.
     static func color(level: Int) -> Color {
-        let opacity: [Double] = [0, 0.3, 0.5, 0.75, 1]
+        let opacity: [Double] = [0, 0.45, 0.62, 0.8, 1]
         return Color(nsColor: .controlAccentColor).opacity(opacity[min(max(level, 0), 4)])
     }
 }
