@@ -59,6 +59,15 @@ final class CalendarModel: ObservableObject {
         eventsForList(on: day, events: events, calendar: calendar)
     }
 
+    var weekendWeekdays: Set<Int> {
+        preferences.weekendDays ?? defaultWeekendWeekdays(calendar: calendar)
+    }
+
+    /// Weekend days are drawn dimmer, unless the user turned that off.
+    func isDimmedWeekend(_ day: Date) -> Bool {
+        preferences.dimWeekends && isWeekend(day, weekendWeekdays: weekendWeekdays, calendar: calendar)
+    }
+
     var includedCalendarIDs: Set<String> {
         DinkyCalCore.includedCalendarIDs(all: store.calendars(),
                                          userExcluded: preferences.userExcludedCalendarIDs,

@@ -63,3 +63,17 @@ public func weekNumbers(for grid: MonthGrid, calendar: Calendar) -> [Int] {
         calendar.component(.weekOfYear, from: grid.days[row * 7 + 6].date)
     }
 }
+
+/// The region's weekend as weekday numbers (1 = Sunday ... 7 = Saturday), from the calendar's locale.
+public func defaultWeekendWeekdays(calendar: Calendar) -> Set<Int> {
+    // Any full week works; 2026-01-04 is a Sunday.
+    let sunday = calendar.date(from: DateComponents(year: 2026, month: 1, day: 4, hour: 12))!
+    return Set((0..<7).compactMap { offset -> Int? in
+        let day = calendar.date(byAdding: .day, value: offset, to: sunday)!
+        return calendar.isDateInWeekend(day) ? calendar.component(.weekday, from: day) : nil
+    })
+}
+
+public func isWeekend(_ date: Date, weekendWeekdays: Set<Int>, calendar: Calendar) -> Bool {
+    weekendWeekdays.contains(calendar.component(.weekday, from: date))
+}

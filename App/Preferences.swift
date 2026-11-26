@@ -11,6 +11,8 @@ final class Preferences: ObservableObject {
         static let included = "includedCalendars"
         static let iconStyle = "iconStyle"
         static let showWeekNumbers = "showWeekNumbers"
+        static let weekendDays = "weekendDays"
+        static let dimWeekends = "dimWeekends"
     }
 
     private let defaults: UserDefaults
@@ -36,6 +38,14 @@ final class Preferences: ObservableObject {
         didSet { defaults.set(showWeekNumbers, forKey: Key.showWeekNumbers) }
     }
 
+    /// nil means "use my region's weekend".
+    @Published var weekendDays: Set<Int>? {
+        didSet { defaults.set(weekendDays.map { Array($0) }, forKey: Key.weekendDays) }
+    }
+    @Published var dimWeekends: Bool {
+        didSet { defaults.set(dimWeekends, forKey: Key.dimWeekends) }
+    }
+
     init(defaults: UserDefaults = .standard) {
         self.defaults = defaults
         if defaults.object(forKey: Key.dayWindowStart) != nil {
@@ -47,6 +57,8 @@ final class Preferences: ObservableObject {
         userExcludedCalendarIDs = (defaults.array(forKey: Key.excluded) as? [String]).map(Set.init)
         userIncludedCalendarIDs = Set(defaults.array(forKey: Key.included) as? [String] ?? [])
         showWeekNumbers = defaults.bool(forKey: Key.showWeekNumbers)
+        weekendDays = (defaults.array(forKey: Key.weekendDays) as? [Int]).map(Set.init)
+        dimWeekends = defaults.object(forKey: Key.dimWeekends) as? Bool ?? true
         iconStyle = IconStyle(rawValue: defaults.string(forKey: Key.iconStyle) ?? "") ?? .date
     }
 

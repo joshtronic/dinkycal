@@ -70,6 +70,30 @@ struct PreferencesView: View {
 
             Section("Display") {
                 Toggle("Show week numbers", isOn: $preferences.showWeekNumbers)
+                Toggle("Dim weekends", isOn: $preferences.dimWeekends)
+                if preferences.dimWeekends {
+                    LabeledContent("Weekend days") {
+                        HStack(spacing: 4) {
+                            ForEach(orderedWeekdays, id: \.self) { weekday in
+                                let on = model.weekendWeekdays.contains(weekday)
+                                Button(model.calendar.veryShortWeekdaySymbols[weekday - 1]) {
+                                    var days = model.weekendWeekdays
+                                    if on { days.remove(weekday) } else { days.insert(weekday) }
+                                    preferences.weekendDays = days
+                                }
+                                .buttonStyle(.plain)
+                                .frame(width: 24, height: 24)
+                                .background(Circle().fill(on ? Color.accentColor : Color.primary.opacity(0.08)))
+                                .foregroundStyle(on ? Color.white : Color.primary)
+                                .accessibilityLabel(model.calendar.weekdaySymbols[weekday - 1])
+                                .accessibilityAddTraits(on ? .isSelected : [])
+                            }
+                        }
+                    }
+                    if preferences.weekendDays != nil {
+                        Button("Use my region's weekend") { preferences.weekendDays = nil }
+                    }
+                }
                 Picker("Menu bar icon", selection: $preferences.iconStyle) {
                     Text("Today's date").tag(IconStyle.date)
                     Text("Plain icon").tag(IconStyle.glyph)
@@ -90,6 +114,11 @@ struct PreferencesView: View {
             launchAtLogin = LaunchAtLogin.isEnabled
         }
         .frame(width: 460, height: 600)
+    }
+
+    /// Weekday numbers (1 = Sunday) starting from the user's first weekday.
+    private var orderedWeekdays: [Int] {
+        (0..<7).map { (model.calendar.firstWeekday - 1 + $0) % 7 + 1 }
     }
 
     private func timeLabel(_ minute: Int) -> String {

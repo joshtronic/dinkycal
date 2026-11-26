@@ -10,10 +10,10 @@ struct MonthGridView: View {
         let weeks = preferences.showWeekNumbers ? weekNumbers(for: grid, calendar: model.calendar) : nil
         VStack(spacing: 2) {
             HStack(spacing: 0) {
-                ForEach(Array(grid.weekdaySymbols.enumerated()), id: \.offset) { _, symbol in
+                ForEach(Array(grid.weekdaySymbols.enumerated()), id: \.offset) { column, symbol in
                     Text(symbol)
                         .font(.system(size: 11, weight: .semibold))
-                        .foregroundStyle(.secondary)
+                        .foregroundStyle(model.isDimmedWeekend(grid.days[column].date) ? .tertiary : .secondary)
                         .frame(maxWidth: .infinity)
                 }
                 if weeks != nil { WeekNumberLabel(text: "Wk").foregroundStyle(.tertiary) }

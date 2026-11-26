@@ -15,7 +15,8 @@ struct DayCell: View {
         VStack(spacing: 5) {
             Text("\(number)")
                 .font(.system(size: 13, weight: day.isToday ? .bold : .regular).monospacedDigit())
-                .foregroundStyle(HeatDot.textColor(level: level, isToday: day.isToday))
+                .foregroundStyle(HeatDot.textColor(level: level, isToday: day.isToday,
+                                                   isWeekend: model.isDimmedWeekend(day.date)))
                 .frame(width: 28, height: 28)
                 .background {
                     // The heat: a filled circle behind the date, brighter for busier days.
@@ -76,8 +77,9 @@ enum HeatDot {
     }
 
     /// White on the two strongest fills; otherwise normal text (accent for today).
-    static func textColor(level: Int, isToday: Bool) -> Color {
+    static func textColor(level: Int, isToday: Bool, isWeekend: Bool = false) -> Color {
         if level >= 3 { return .white }
-        return isToday ? .accentColor : .primary
+        if isToday { return .accentColor }
+        return isWeekend ? .secondary : .primary
     }
 }
