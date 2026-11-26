@@ -50,7 +50,7 @@
       <figure class="stage" aria-label="Animation: the Dinky Cal icon in the menu bar is clicked, the month calendar opens, and hovering December 3 shows In 7 days.">
         <div class="scene" aria-hidden="true">
           <div class="mb">
-            <span class="app">Notes</span><span class="menu">File</span><span class="menu">Edit</span><span class="menu">View</span>
+            <span class="app">Notes</span><span class="menu">File</span><span class="menu">Edit</span>
             <span class="right">
               <svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M2.5 7.2a9.5 9.5 0 0 1 13 0M5 9.8a6 6 0 0 1 8 0M7.4 12.3a2.6 2.6 0 0 1 3.2 0"/><circle cx="9" cy="14.6" r="0.9" fill="currentColor" stroke="none"/></svg>
               <svg viewBox="0 0 26 18" style="width:26px"><rect x="1" y="4.5" width="21" height="10" rx="3" fill="none" stroke="currentColor" stroke-width="1.4" opacity=".55"/><rect x="3" y="6.5" width="14" height="6" rx="1.5" fill="currentColor"/><rect x="23" y="8" width="2" height="3.5" rx="1" fill="currentColor" opacity=".55"/></svg>
@@ -69,8 +69,12 @@
     </section>
 
     <section class="wrap section" id="dots" aria-labelledby="dots-title">
-      <h2 id="dots-title">Brighter day, busier day.</h2>
-      <p class="lede">Dinky Cal counts the hours you're booked, not how many things are on the list. Five quick calls and one long workshop shouldn't look the same.</p>
+      <div class="split">
+      <div class="intro">
+        <h2 id="dots-title">Brighter day, busier day.</h2>
+        <p class="lede">Dinky Cal counts the hours you're booked, not how many things are on the list. Five quick calls and one long workshop shouldn't look the same.</p>
+      </div>
+      <div class="body">
       <div class="legend">
         <div><span class="dot" data-level="1">2</span><span><b>A little</b><small>under 2 hours</small></span></div>
         <div><span class="dot" data-level="2">19</span><span><b>Some</b><small>2 to 4 hours</small></span></div>
@@ -83,11 +87,17 @@
         <li><span><b>Your day, your hours.</b> Busy is measured from 9 to 5 unless you pick other hours.</span></li>
         <li><span><b>Today doesn't count.</b> Hover next Tuesday on a Tuesday and it says "In 7 days", not 8.</span></li>
       </ul>
+      </div>
+      </div>
     </section>
 
     <section class="wrap section" aria-labelledby="real-title">
-      <h2 id="real-title">Click the date. That's the whole app.</h2>
-      <p class="lede">It reads the calendars your Mac already has: iCloud, Google, Exchange, anything in Internet Accounts. No sign-in, no setup.</p>
+      <div class="split">
+      <div class="intro">
+        <h2 id="real-title">Click the icon, see the calendar.</h2>
+        <p class="lede">It reads the calendars your Mac already has: iCloud, Google, Exchange, anything in Internet Accounts. No sign-in, no setup.</p>
+        <p class="promise">Small on purpose: it never asks you to sign in, never touches the internet, never tracks you, never nags for a rating, and never edits your events.</p>
+      </div>
       <ul class="strips">
         <li><b>Hover a day</b><span>How far away it is and how busy it is, instantly.</span></li>
         <li><b>Click a day</b><span>A ring goes around it and its events list below.</span></li>
@@ -97,23 +107,15 @@
         <li><b>A hotkey</b><span>Set one and the month pops open from anywhere.</span></li>
         <li><b>Your accent color</b><span>Busy days and today follow the color you picked in System Settings.</span></li>
       </ul>
-    </section>
-
-    <section class="wrap section" aria-labelledby="small-title">
-      <h2 id="small-title">Small on purpose.</h2>
-      <p class="lede">It's a month, some dots, and your events. That's it. Things it will never do:</p>
-      <ul class="never">
-        <li><svg viewBox="0 0 22 22" aria-hidden="true"><circle cx="11" cy="11" r="10" fill="#e5484d"/><path d="M7 7l8 8M15 7l-8 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/></svg>Make you sign in</li>
-        <li><svg viewBox="0 0 22 22" aria-hidden="true"><circle cx="11" cy="11" r="10" fill="#e5484d"/><path d="M7 7l8 8M15 7l-8 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/></svg>Talk to the internet</li>
-        <li><svg viewBox="0 0 22 22" aria-hidden="true"><circle cx="11" cy="11" r="10" fill="#e5484d"/><path d="M7 7l8 8M15 7l-8 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/></svg>Track anything</li>
-        <li><svg viewBox="0 0 22 22" aria-hidden="true"><circle cx="11" cy="11" r="10" fill="#e5484d"/><path d="M7 7l8 8M15 7l-8 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/></svg>Nag you to rate it</li>
-        <li><svg viewBox="0 0 22 22" aria-hidden="true"><circle cx="11" cy="11" r="10" fill="#e5484d"/><path d="M7 7l8 8M15 7l-8 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/></svg>Edit your events</li>
-      </ul>
+      </div>
     </section>
 
     <section class="wrap section" id="price" aria-labelledby="price-title">
-      <h2 id="price-title">Free, or show your support for indie developers.</h2>
-      <p class="lede">Every feature is free, everywhere. Nothing is locked behind a purchase. If Dinky Cal earns a spot in your menu bar, you can leave a tip. Needs macOS 14 Sonoma or later.</p>
+      <div class="split">
+      <div class="intro">
+        <h2 id="price-title">Free, or show your support for indie developers.</h2>
+        <p class="lede">Every feature is free, everywhere. Nothing is locked behind a purchase. If Dinky Cal earns a spot in your menu bar, you can leave a tip. Needs macOS 14 Sonoma or later.</p>
+      </div>
       <div class="price">
         <div class="label">
           <div class="amt">Free</div>
@@ -133,6 +135,7 @@
             <a href="https://github.com/sponsors/joshtronic">Sponsor on GitHub</a>
           </div>
         </div>
+      </div>
       </div>
     </section>
   </main>
