@@ -31,6 +31,8 @@ final class StatusItemController: NSObject, NSPopoverDelegate {
         model.$today.sink { [weak self] _ in
             DispatchQueue.main.async { self?.updateIcon() }
         }.store(in: &cancellables)
+        model.showMenu = { [weak self] in self?.showMenu() }
+        model.closePopover = { [weak self] in self?.closePopover() }
         updateIcon()
     }
 

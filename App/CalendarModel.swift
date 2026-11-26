@@ -7,6 +7,10 @@ final class CalendarModel: ObservableObject {
     @Published private(set) var monthStart: Date { didSet { if monthStart != oldValue { loadEvents() } } }
     @Published private(set) var today: Date
     @Published var selectedDay: Date?
+    @Published var hoveredDay: Date?
+    /// Hooks into the status item (set by StatusItemController).
+    var showMenu: () -> Void = {}
+    var closePopover: () -> Void = {}
     @Published private(set) var access: CalendarAccess
     /// Events covering the visible 42-day grid.
     @Published private(set) var events: [CalendarEvent] = []
@@ -101,8 +105,22 @@ final class CalendarModel: ObservableObject {
         if wasOnCurrentMonth { monthStart = startOfMonth(newToday, calendar: calendar) }
     }
 
+    func select(_ day: Date) {
+        selectedDay = calendar.startOfDay(for: day)
+    }
+
+    /// Moves the selection by whole days, switching months when it leaves the current one.
+    func moveSelection(byDays days: Int) {
+        let base = selectedDay ?? today
+        guard let target = calendar.date(byAdding: .day, value: days, to: base) else { return }
+        let targetMonth = startOfMonth(target, calendar: calendar)
+        if targetMonth != monthStart { showMonth(targetMonth) }
+        selectedDay = target
+    }
+
     private func showMonth(_ month: Date) {
         monthStart = month
+        hoveredDay = nil
         if let selected = selectedDay, !grid.days.contains(where: { $0.date == selected }) {
             selectedDay = nil
         }

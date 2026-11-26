@@ -32,7 +32,12 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         // Debug-only hook for screenshots: `open DinkyCal.app --args -openPopover YES`
         if UserDefaults.standard.bool(forKey: "openPopover") {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
-                self?.statusController.showPopover()
+                guard let self else { return }
+                self.statusController.showPopover()
+                let hover = UserDefaults.standard.integer(forKey: "previewHoverDays")
+                if hover != 0, let day = self.model.calendar.date(byAdding: .day, value: hover, to: self.model.today) {
+                    self.model.hoveredDay = day
+                }
             }
         }
         #endif

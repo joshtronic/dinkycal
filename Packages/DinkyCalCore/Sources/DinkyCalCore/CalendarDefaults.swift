@@ -42,3 +42,27 @@ public func eventsForList(on day: Date, events: [CalendarEvent], calendar: Calen
             return a.title.localizedStandardCompare(b.title) == .orderedAscending
         }
 }
+
+/// How an event appears on one specific day of the list.
+public enum EventSpan: Equatable, Sendable {
+    case allDay
+    case range(Date, Date)
+    /// Starts on this day, continues past midnight.
+    case from(Date)
+    /// Started on an earlier day, ends on this one.
+    case until(Date)
+}
+
+public func eventSpan(_ event: CalendarEvent, on day: Date, calendar: Calendar) -> EventSpan {
+    if event.isAllDay { return .allDay }
+    let dayStart = calendar.startOfDay(for: day)
+    let dayEnd = calendar.date(byAdding: .day, value: 1, to: dayStart)!
+    let startsBefore = event.start < dayStart
+    let endsAfter = event.end > dayEnd
+    switch (startsBefore, endsAfter) {
+    case (true, true): return .allDay
+    case (true, false): return .until(event.end)
+    case (false, true): return .from(event.start)
+    case (false, false): return .range(event.start, event.end)
+    }
+}

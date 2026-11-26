@@ -17,12 +17,13 @@ struct MonthGridView: View {
             }
             .padding(.bottom, 4)
             ForEach(0..<6, id: \.self) { week in
+                let days = Array(grid.days[(week * 7)..<(week * 7 + 7)])
                 HStack(spacing: 0) {
-                    ForEach(grid.days[(week * 7)..<(week * 7 + 7)]) { day in
-                        DayCell(day: day)
-                            .frame(maxWidth: .infinity)
+                    ForEach(Array(days.enumerated()), id: \.element.id) { column, day in
+                        DayCell(day: day, column: column)
                     }
                 }
+                .zIndex(days.contains { $0.date == model.hoveredDay } ? 1 : 0)
             }
         }
     }

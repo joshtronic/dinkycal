@@ -21,15 +21,19 @@
 		C0C9D1D509D73F8A3820A45A /* PopoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89D25C86525C83A7534591AA /* PopoverView.swift */; };
 		CC3E98DD09AF9FB73D3A973C /* DayCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D800D2B0B07262919BD9795 /* DayCell.swift */; };
 		D8E26CDD21D2DB7CAA3CF647 /* MonthGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B0DA131A82F38CC47C67F48 /* MonthGridView.swift */; };
+		E3A36577758AFE8AA59C164D /* DayTooltip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F1E648A9CA55ED94C8DA004 /* DayTooltip.swift */; };
+		E9AB630535B69383D6C9CDB4 /* DayDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DD9257C4046F9BA2145FDC1 /* DayDetailView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		0258E3EA16E7D14D128BB5AD /* EventStoreService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventStoreService.swift; sourceTree = "<group>"; };
 		0B693D76ACA2D60996194A7E /* DinkyCalApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DinkyCalApp.swift; sourceTree = "<group>"; };
+		0DD9257C4046F9BA2145FDC1 /* DayDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayDetailView.swift; sourceTree = "<group>"; };
 		1F8424AB92150EE4B7443D19 /* DinkyCal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DinkyCal.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		31C4F67D0FC2076261C298B2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		35DE4FDF4A26E09CA49AAA4D /* DinkyCal.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DinkyCal.entitlements; sourceTree = "<group>"; };
 		3B0DA131A82F38CC47C67F48 /* MonthGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthGridView.swift; sourceTree = "<group>"; };
+		5F1E648A9CA55ED94C8DA004 /* DayTooltip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayTooltip.swift; sourceTree = "<group>"; };
 		7C2E3D8D22331AF3F370AAFC /* StatusIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusIcon.swift; sourceTree = "<group>"; };
 		7C84BCBB4B05F404CC71A4A8 /* AccessPromptView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessPromptView.swift; sourceTree = "<group>"; };
 		89D25C86525C83A7534591AA /* PopoverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopoverView.swift; sourceTree = "<group>"; };
@@ -69,6 +73,8 @@
 			children = (
 				7C84BCBB4B05F404CC71A4A8 /* AccessPromptView.swift */,
 				8D800D2B0B07262919BD9795 /* DayCell.swift */,
+				0DD9257C4046F9BA2145FDC1 /* DayDetailView.swift */,
+				5F1E648A9CA55ED94C8DA004 /* DayTooltip.swift */,
 				3B0DA131A82F38CC47C67F48 /* MonthGridView.swift */,
 				D8A4503269271BBEB6953AA0 /* MonthHeaderView.swift */,
 				89D25C86525C83A7534591AA /* PopoverView.swift */,
@@ -187,6 +193,8 @@
 				5CA24418A39BF4B9AB2F0DEF /* AppMenu.swift in Sources */,
 				825871D68C8540BC3DA4660D /* CalendarModel.swift in Sources */,
 				CC3E98DD09AF9FB73D3A973C /* DayCell.swift in Sources */,
+				E9AB630535B69383D6C9CDB4 /* DayDetailView.swift in Sources */,
+				E3A36577758AFE8AA59C164D /* DayTooltip.swift in Sources */,
 				7461DDB424D17FADD0494D36 /* DinkyCalApp.swift in Sources */,
 				84317B4C3BC559BDEF623EDE /* EventStoreService.swift in Sources */,
 				D8E26CDD21D2DB7CAA3CF647 /* MonthGridView.swift in Sources */,
