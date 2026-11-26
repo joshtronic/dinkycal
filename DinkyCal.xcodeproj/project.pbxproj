@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		035DA51FEC99D5982115DE9A /* KeyboardShortcuts in Frameworks */ = {isa = PBXBuildFile; productRef = 5CAEA13EDDD470DA9DE622AF /* KeyboardShortcuts */; };
 		3A2CE300B4C0AD0DF4FA3ADA /* MonthHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8A4503269271BBEB6953AA0 /* MonthHeaderView.swift */; };
+		410DA6A45E619A8C7905E339 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B2CE0E268A579F2AC6E05254 /* Assets.xcassets */; };
 		5C0802776043F7A0C344988F /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F51F8E58639CB4FF52759B9 /* Preferences.swift */; };
 		5CA24418A39BF4B9AB2F0DEF /* AppMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3EFD44259B41FA6A6B4075A /* AppMenu.swift */; };
 		7461DDB424D17FADD0494D36 /* DinkyCalApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B693D76ACA2D60996194A7E /* DinkyCalApp.swift */; };
@@ -44,6 +45,7 @@
 		8A74A5C1FD5E27E7C08F5B37 /* PreferencesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesView.swift; sourceTree = "<group>"; };
 		8D800D2B0B07262919BD9795 /* DayCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayCell.swift; sourceTree = "<group>"; };
 		8F51F8E58639CB4FF52759B9 /* Preferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
+		B2CE0E268A579F2AC6E05254 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C7E98DCA55ACBB360A7424C6 /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
 		C9AFD5AD48901BE69D58F531 /* StatusItemController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusItemController.swift; sourceTree = "<group>"; };
 		D3EFD44259B41FA6A6B4075A /* AppMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppMenu.swift; sourceTree = "<group>"; };
@@ -68,6 +70,7 @@
 		2C115E7E915D9BE12E1779BE /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				B2CE0E268A579F2AC6E05254 /* Assets.xcassets */,
 				35DE4FDF4A26E09CA49AAA4D /* DinkyCal.entitlements */,
 				31C4F67D0FC2076261C298B2 /* Info.plist */,
 			);
@@ -140,6 +143,7 @@
 			buildConfigurationList = 3E99209485DED4CE209227E3 /* Build configuration list for PBXNativeTarget "DinkyCal" */;
 			buildPhases = (
 				3DF34355520476A5C702D5FE /* Sources */,
+				4CCD7455CC6A3C0859F51A00 /* Resources */,
 				6DF1EBA4C76E84CACB855A37 /* Frameworks */,
 			);
 			buildRules = (
@@ -192,6 +196,17 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		4CCD7455CC6A3C0859F51A00 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				410DA6A45E619A8C7905E339 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		3DF34355520476A5C702D5FE /* Sources */ = {

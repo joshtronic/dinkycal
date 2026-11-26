@@ -80,7 +80,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         }
         #endif
 
-        let refresh: (Notification) -> Void = { [weak self] _ in
+        let refresh: @Sendable (Notification) -> Void = { [weak self] _ in
             Task { @MainActor in self?.model.refreshToday() }
         }
         let center = NotificationCenter.default
