@@ -54,3 +54,12 @@ public func makeMonthGrid(for month: Date, today: Date, calendar: Calendar) -> M
 public func shiftMonth(_ monthStart: Date, by offset: Int, calendar: Calendar) -> Date {
     startOfMonth(calendar.date(byAdding: .month, value: offset, to: monthStart)!, calendar: calendar)
 }
+
+/// Week-of-year for each of the grid's 6 rows, using the calendar's own week rules
+/// (US: Sunday weeks containing Jan 1; ISO: Monday weeks, 4-day minimum).
+/// A row that contains Jan 1 is week 1 under US rules, so the row's last day decides.
+public func weekNumbers(for grid: MonthGrid, calendar: Calendar) -> [Int] {
+    (0..<6).map { row in
+        calendar.component(.weekOfYear, from: grid.days[row * 7 + 6].date)
+    }
+}

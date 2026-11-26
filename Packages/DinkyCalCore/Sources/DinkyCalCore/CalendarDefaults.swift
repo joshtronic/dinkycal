@@ -66,3 +66,20 @@ public func eventSpan(_ event: CalendarEvent, on day: Date, calendar: Calendar) 
     case (false, false): return .range(event.start, event.end)
     }
 }
+
+/// Calendars grouped by account, accounts alphabetical. Within an account the primary
+/// calendar (titled like the account, or titled with an email address as Google's is) comes first,
+/// then alphabetical.
+public func groupedCalendars(_ calendars: [CalendarInfo]) -> [(source: String, calendars: [CalendarInfo])] {
+    Dictionary(grouping: calendars, by: \.sourceTitle)
+        .map { source, cals in
+            let sorted = cals.sorted { a, b in
+                func isPrimary(_ c: CalendarInfo) -> Bool { c.title == source || c.title.contains("@") }
+                let aPrimary = isPrimary(a), bPrimary = isPrimary(b)
+                if aPrimary != bPrimary { return aPrimary }
+                return a.title.localizedStandardCompare(b.title) == .orderedAscending
+            }
+            return (source: source, calendars: sorted)
+        }
+        .sorted { $0.source.localizedStandardCompare($1.source) == .orderedAscending }
+}

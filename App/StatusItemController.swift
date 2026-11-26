@@ -9,13 +9,15 @@ final class StatusItemController: NSObject, NSPopoverDelegate {
     private let model: CalendarModel
     private var cancellables = Set<AnyCancellable>()
     var iconStyle: IconStyle = .date { didSet { updateIcon() } }
-    var menuProvider: () -> NSMenu = { AppMenu.make() }
+    var menuProvider: () -> NSMenu = { NSMenu() }
 
     init(model: CalendarModel) {
         self.model = model
         super.init()
 
-        let hosting = NSHostingController(rootView: PopoverView().environmentObject(model))
+        let hosting = NSHostingController(rootView: PopoverView()
+            .environmentObject(model)
+            .environmentObject(model.preferences))
         hosting.sizingOptions = .preferredContentSize
         popover.contentViewController = hosting
         popover.behavior = .transient

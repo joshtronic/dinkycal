@@ -40,3 +40,28 @@ final class CalendarDefaultsTests: XCTestCase {
                        ["a1", "a2", "t1", "t3", "t2"])
     }
 }
+
+final class CalendarGroupingTests: XCTestCase {
+    func test_primaryCalendarFirstThenAlphabetical() {
+        let cals = [
+            CalendarInfo(id: "1", title: "Family", sourceTitle: "josh@gmail.com", kind: .regular),
+            CalendarInfo(id: "2", title: "josh@gmail.com", sourceTitle: "josh@gmail.com", kind: .regular),
+            CalendarInfo(id: "3", title: "Birthdays", sourceTitle: "josh@gmail.com", kind: .regular),
+            CalendarInfo(id: "4", title: "Work", sourceTitle: "iCloud", kind: .regular),
+            CalendarInfo(id: "5", title: "Home", sourceTitle: "iCloud", kind: .regular),
+        ]
+        let groups = groupedCalendars(cals)
+        XCTAssertEqual(groups.map(\.source), ["iCloud", "josh@gmail.com"])
+        XCTAssertEqual(groups[0].calendars.map(\.id), ["5", "4"])
+        XCTAssertEqual(groups[1].calendars.map(\.id), ["2", "3", "1"])
+    }
+
+    func test_emailTitledCalendarIsPrimaryWhenSourceIsGeneric() {
+        let cals = [
+            CalendarInfo(id: "1", title: "Family", sourceTitle: "Google", kind: .regular),
+            CalendarInfo(id: "2", title: "josh@gmail.com", sourceTitle: "Google", kind: .regular),
+            CalendarInfo(id: "3", title: "Holidays in United States", sourceTitle: "Google", kind: .regular),
+        ]
+        XCTAssertEqual(groupedCalendars(cals)[0].calendars.map(\.id), ["2", "1", "3"])
+    }
+}

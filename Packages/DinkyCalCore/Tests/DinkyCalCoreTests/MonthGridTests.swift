@@ -48,3 +48,24 @@ final class MonthGridTests: XCTestCase {
         XCTAssertEqual(shiftMonth(date(2026, 1, 1), by: -1, calendar: cal), date(2025, 12, 1))
     }
 }
+
+final class WeekNumberTests: XCTestCase {
+    func test_usWeeksSundayStart() {
+        var cal = nyCalendar(firstWeekday: 1)
+        cal.minimumDaysInFirstWeek = 1
+        let grid = makeMonthGrid(for: date(2026, 11, 1), today: date(2026, 11, 26), calendar: cal)
+        XCTAssertEqual(weekNumbers(for: grid, calendar: cal), [45, 46, 47, 48, 49, 50])
+    }
+    func test_isoWeeksMondayStart() {
+        var cal = nyCalendar(firstWeekday: 2)
+        cal.minimumDaysInFirstWeek = 4
+        let grid = makeMonthGrid(for: date(2026, 11, 1), today: date(2026, 11, 26), calendar: cal)
+        XCTAssertEqual(weekNumbers(for: grid, calendar: cal).first, 44)
+    }
+    func test_yearBoundaryRowIsWeekOne() {
+        var cal = nyCalendar(firstWeekday: 1)
+        cal.minimumDaysInFirstWeek = 1
+        let grid = makeMonthGrid(for: date(2026, 12, 1), today: date(2026, 11, 26), calendar: cal)
+        XCTAssertEqual(Array(weekNumbers(for: grid, calendar: cal).suffix(2)), [1, 2])
+    }
+}
