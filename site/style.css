@@ -458,7 +458,7 @@ a:hover { text-decoration-color: var(--blue); }
   justify-content: flex-end;
   align-items: center;
   gap: 14px;
-  padding: 0 12px;
+  padding-inline: 12px;
   font: 600 0.8125rem/1 var(--text);
   color: #2a2f3a;
 }
@@ -618,7 +618,6 @@ a:hover { text-decoration-color: var(--blue); }
   .day { padding: 6px 4px; min-height: 54px; }
   .day .num { margin: 0; }
   .weekdays span { padding: 0 4px 8px; text-align: center; }
-  .page-meta { flex-direction: column; gap: 4px; }
   .name-label { padding: 16px 20px 20px; }
   .tab { justify-content: flex-start; }
   .get, .brew { width: 100%; }
