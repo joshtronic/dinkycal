@@ -78,7 +78,7 @@ enum HeatDot {
 
     /// White on the two strongest fills; otherwise normal text (accent for today).
     static func textColor(level: Int, isToday: Bool, isWeekend: Bool = false) -> Color {
-        if level >= 3 { return .white }
+        if level >= 4 { return .white }
         if isToday { return .accentColor }
         return isWeekend ? .secondary : .primary
     }

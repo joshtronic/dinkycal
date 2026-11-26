@@ -417,7 +417,7 @@ a:hover { text-decoration-color: var(--blue); }
   font: 700 1rem/1 var(--display);
   font-variant-numeric: tabular-nums;
 }
-.legend .dot[data-level="3"], .legend .dot[data-level="4"] { color: #fff; }
+.legend .dot[data-level="4"] { color: #fff; }
 .legend b { display: block; font: 800 1.25rem/1.05 var(--display); letter-spacing: -0.01em; }
 .legend small { display: block; color: var(--ink-2); font-size: 0.875rem; margin-top: 2px; }
 
