@@ -11,7 +11,7 @@ Accounts) and never sends anything anywhere.
 
 ## Install
 
-- **Mac App Store**: free, with an optional tip jar inside (coming soon).
+- **Mac App Store**: free, with dinky support tiers inside (coming soon).
 - **Homebrew**: `brew install --cask joshtronic/tap/dinkycal`
 - **GitHub**: download the latest zip from
   [Releases](https://github.com/joshtronic/dinkycal/releases).
