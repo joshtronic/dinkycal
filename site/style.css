@@ -181,7 +181,7 @@ a:hover { text-decoration-color: var(--blue); }
   font: 900 clamp(3.4rem, 8vw, 6rem)/0.88 var(--display);
   letter-spacing: -0.035em;
 }
-.name-label h1 .cal { color: var(--blue); }
+.name-label h1 .dinky { color: var(--blue); }
 .name-label p {
   margin: 14px 0 0;
   font-size: 1.125rem;
