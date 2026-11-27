@@ -55,6 +55,8 @@ body {
 
 ::selection { background: var(--yellow); color: var(--ink); }
 
+p, li { text-wrap: pretty; }
+
 .sr-only {
   position: absolute;
   width: 1px;
@@ -238,6 +240,8 @@ a:hover { text-decoration-color: var(--blue); }
   scrollbar-width: none;
 }
 .brew code::selection { background: var(--yellow); color: var(--ink); }
+
+p, li { text-wrap: pretty; }
 .brew code .p { color: #8f97ad; user-select: none; }
 
 .copy {
