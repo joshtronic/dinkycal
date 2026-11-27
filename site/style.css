@@ -256,23 +256,41 @@ p, li { text-wrap: pretty; }
 
 .copy {
   appearance: none;
+  position: relative;
   border: 0;
   border-radius: 10px;
   background: #2b2f39;
   color: #fff;
-  font: 700 0.8125rem/1 var(--display);
-  padding: 9px 12px;
+  width: 36px;
+  height: 34px;
+  padding: 0;
   cursor: pointer;
-  display: inline-flex;
-  gap: 6px;
-  align-items: center;
+  display: inline-grid;
+  place-items: center;
   flex: none;
 }
 .copy:hover { background: #3a3f4c; }
-.copy svg { width: 14px; height: 14px; }
-/* Wide enough for the longest label ("Press ⌘C"), so Copy → Copied never resizes it. */
-.copy span { min-width: 4.5em; text-align: center; }
+.copy svg { width: 15px; height: 15px; grid-area: 1 / 1; }
+.copy .i-check, .copy.done .i-copy { display: none; }
+.copy.done .i-check { display: block; }
 .copy.done { background: var(--yellow); color: var(--ink); }
+/* "Copied" / "Press ⌘C" bubble above the button; also the screen-reader announcement. */
+.copy .tip {
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translate(-50%, 3px);
+  background: var(--ink);
+  color: #fff;
+  font: 600 0.75rem/1 var(--text);
+  padding: 6px 8px;
+  border-radius: 6px;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 150ms var(--ease), transform 150ms var(--ease);
+}
+.copy .tip.show { opacity: 1; transform: translate(-50%, 0); }
 
 /* The stage: a slice of a Mac desktop where the app gets used, frame by real frame. */
 .stage {

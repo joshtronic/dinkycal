@@ -9,20 +9,27 @@
   }
 
   document.querySelectorAll(".copy").forEach((btn) => {
+    const tip = btn.querySelector(".tip");
+    let timer;
     btn.addEventListener("click", async () => {
-      const label = btn.querySelector("span");
       try {
         await navigator.clipboard.writeText(btn.dataset.copy);
         btn.classList.add("done");
-        label.textContent = "Copied";
+        tip.textContent = "Copied";
       } catch (_) {
         const range = document.createRange();
         range.selectNodeContents(document.getElementById("brew-cmd"));
         getSelection().removeAllRanges();
         getSelection().addRange(range);
-        label.textContent = "Press ⌘C";
+        tip.textContent = "Press ⌘C";
       }
-      setTimeout(() => { btn.classList.remove("done"); label.textContent = "Copy"; }, 1800);
+      tip.classList.add("show");
+      clearTimeout(timer);
+      timer = setTimeout(() => {
+        btn.classList.remove("done");
+        tip.classList.remove("show");
+        tip.textContent = "";
+      }, 1600);
     });
   });
 })();
