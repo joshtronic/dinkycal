@@ -190,7 +190,7 @@ a:hover { text-decoration-color: var(--blue); }
   line-height: 1.45;
   color: var(--ink-2);
   max-width: none;
-  text-wrap: pretty;
+  text-wrap: balance;
 }
 
 .get {

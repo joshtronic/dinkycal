@@ -1,6 +1,6 @@
 cask "dinkycal" do
   version "1.0.0"
-  sha256 "REPLACE_WITH_SHA256_FROM_RELEASE_SCRIPT"
+  sha256 "218b89c8704e05501a79610f3bd35fc854b2cd8f87e109379968d6882b0de378"
 
   url "https://github.com/joshtronic/dinkycal/releases/download/v#{version}/DinkyCal-#{version}.zip"
   name "Dinky Cal"
