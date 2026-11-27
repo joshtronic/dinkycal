@@ -154,6 +154,7 @@ a:hover { text-decoration-color: var(--blue); }
 
 /* ---------- Hero ---------- */
 
+.hero > :first-child { container-type: inline-size; }
 .hero {
   display: grid;
   grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
@@ -186,11 +187,15 @@ a:hover { text-decoration-color: var(--blue); }
 .name-label h1 .dinky { color: var(--blue); }
 .name-label p {
   margin: 14px 0 0;
-  font-size: 1.125rem;
+  /* One line: shrink with the column (label padding is 60px) rather than wrap. */
+  font-size: min(1.125rem, calc((100cqi - 64px) / 24));
+  white-space: nowrap;
   line-height: 1.45;
   color: var(--ink-2);
   max-width: none;
-  text-wrap: balance;
+}
+@container (max-width: 400px) {
+  .name-label p { font-size: 1.0625rem; white-space: normal; text-wrap: balance; }
 }
 
 .get {
