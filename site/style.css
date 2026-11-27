@@ -157,10 +157,15 @@ a:hover { text-decoration-color: var(--blue); }
 .hero > :first-child { container-type: inline-size; }
 .hero {
   display: grid;
-  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  /* 520px: the brew command bar's full width, so the command is never clipped. */
+  grid-template-columns: minmax(520px, 5fr) minmax(0, 7fr);
   gap: 40px;
   align-items: center;
   padding-block: 28px 72px;
+}
+@media (max-width: 1000px) {
+  .hero { grid-template-columns: minmax(0, 1fr); }
+  .hero .stage { justify-self: start; }
 }
 
 .name-label {
