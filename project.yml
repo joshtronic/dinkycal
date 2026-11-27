@@ -36,6 +36,7 @@ targets:
         CFBundleVersion: $(CURRENT_PROJECT_VERSION)
         LSUIElement: true
         LSApplicationCategoryType: public.app-category.productivity
+        ITSAppUsesNonExemptEncryption: false
         NSHumanReadableCopyright: Copyright © 2026 Josh Sherman. GPL-3.0-or-later.
         NSCalendarsFullAccessUsageDescription: Dinky Cal reads your calendars to show how busy each day is. Your data never leaves your Mac.
     entitlements:
